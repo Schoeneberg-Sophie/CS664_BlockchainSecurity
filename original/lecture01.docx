@@ -1,0 +1,87 @@
+Quizzes for the first lecture:
+
+1. What is the primary goal of bitcoin?
+  a)
+  b)
+  c) 
+  d) realise a payment without a trusted third party
+  correct: d)
+    explanation:
+
+2. What are the advantages of Bitcoin?
+  a) higher anonymity
+  b)
+  c) peer-to-peer transactions
+  d)
+  correct: a) and c)
+    explanation:
+
+3. What are the disadvantages of Bitcoin?
+  a) 
+  b) slow transaction processing
+  c) vulnerable to hacking or forgotten passwords
+  d) 
+  e) high transaction fees
+  correct: b), c) and e)
+    explanation:
+
+4. What are members of the Bitcoin network called?
+  Text field:
+  correct: Node OR Nodes OR node OR nodes
+    explanation:
+
+5. What are some functionalities of Nodes:
+a) Mining
+b) 
+c) Wallet
+d) Networking Routing
+e) 
+f) Storing the full blockchain
+correct: a), c), d) and f)
+  explanation:
+
+6. TRUE or FALSE: Network Routing is supported by and node of the Bitcoin Network
+  a) TRUE
+  b) FALSE
+  correct: a)
+    explanation:
+
+7. A Wallet is a ...
+  a) Software realising one or more Bitcoin accounts
+  b) 
+  correct: a)
+    explanation:
+
+8. An Address is a...
+  a)
+  b)
+  c) Pseudonym
+  d) set of numbers identifying the Bitcoin account
+  correct: c) and d)
+    explanation:
+
+9. Miners:
+a) add transaction to the blockchain
+b) achieve consensus
+c)
+d)
+correct: a) and b)
+  explanation:
+
+10. Full Nodes are special in that:
+  a) they keep track of transactions not yet added to the bockchain
+  b) they are connected to every other node in the network
+  c) they keep track of the blockchain
+  d) they are responsible for validating transactions
+  correct: c)
+  explanation:
+
+  11. If a new node wants to join the network, they can contact a:
+  a) Full Node
+  b) Miner
+  c) Seed Node
+  d) any Node
+  correct: c)
+    explanation:
+
+12. 
