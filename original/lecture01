@@ -1,175 +1,128 @@
 Quizzes for the first lecture:
 
-1. What is the primary goal of bitcoin?
-  a)
-  b)
-  c) 
+1. What is the primary goal of Bitcoin?
+  a) create a currency that is issued and controlled by a central bank
+  b) make payments faster than any credit card network
+  c) allow banks to reverse and monitor all transactions
   d) realise a payment without a trusted third party
   correct: d)
-    explanation:
+    explanation: Bitcoin aims to be a decentralized digital currency that works without relying on a trusted third party such as a bank.
 
 2. What are the advantages of Bitcoin?
   a) higher anonymity
-  b)
+  b) transactions can be reversed by a bank in case of fraud
   c) peer-to-peer transactions
-  d)
+  d) guaranteed stable value
   correct: a) and c)
-    explanation:
+    explanation: Payments are sent directly between peers without a financial institution, and users appear only under pseudonyms (addresses). Reversible transactions and a stable value are not features of Bitcoin.
 
 3. What are the disadvantages of Bitcoin?
-  a) 
+  a) it requires a central authority to approve every payment
   b) slow transaction processing
   c) vulnerable to hacking or forgotten passwords
-  d) 
+  d) transactions can only be sent during bank opening hours
   e) high transaction fees
   correct: b), c) and e)
-    explanation:
+    explanation: Transactions are grouped into blocks roughly every 10 minutes, so processing is slow. Whoever has the private key controls the coins, so a lost password or a hacked wallet can mean lost funds. Fees can be high. No central authority is involved, and Bitcoin runs around the clock.
 
 4. What are members of the Bitcoin network called?
   Text field:
   correct: Node OR Nodes OR node OR nodes
-    explanation:
+    explanation: Members of the network are called nodes. A node is a device running the Bitcoin software.
 
-5. What are some functionalities of Nodes:
-a) Mining
-b) 
-c) Wallet
-d) Networking Routing
-e) 
-f) Storing the full blockchain
-correct: a), c), d) and f)
-  explanation:
+5. What are some functionalities of Nodes?
+  a) Mining
+  b) Issuing government-backed currency
+  c) Wallet
+  d) Network routing
+  e) Approving transactions as a central authority
+  f) Storing the full blockchain
+  correct: a), c), d) and f)
+    explanation: All nodes are equal, but they may support different functionalities: network routing, wallet, mining and storing the full blockchain.
 
-6. TRUE or FALSE: Network Routing is supported by and node of the Bitcoin Network
+6. TRUE or FALSE: Network routing is supported by any node of the Bitcoin network.
   a) TRUE
   b) FALSE
   correct: a)
-    explanation:
+    explanation: Forwarding, validating and propagating transactions and blocks is supported by every node. Other functionalities such as mining are optional.
 
-7. A Wallet is a ...
-  a) Software realising one or more Bitcoin accounts
-  b) 
+7. A wallet is a ...
+  a) software realising one or more Bitcoin accounts
+  b) database that stores the full blockchain
+  c) bank account at a Bitcoin exchange
+  d) device that stores bitcoins physically
   correct: a)
-    explanation:
+    explanation: A wallet is software through which a user manages keys and addresses and creates or signs transactions. Coins are recorded on the blockchain, not stored in the wallet.
 
-8. An Address is a...
-  a)
-  b)
-  c) Pseudonym
+8. An address is a ...
+  a) private key used to sign transactions
+  b) copy of the blockchain
+  c) pseudonym
   d) set of numbers identifying the Bitcoin account
   correct: c) and d)
-    explanation:
+    explanation: Addresses are numbers that identify Bitcoin accounts and act as pseudonyms for users. One user can use many addresses.
 
 9. Miners:
-a) add transaction to the blockchain
-b) achieve consensus
-c)
-d)
-correct: a) and b)
-  explanation:
+  a) add transactions to the blockchain
+  b) achieve consensus
+  c) issue wallets to new users
+  d) store the private keys of all users
+  correct: a) and b)
+    explanation: Mining is essential for achieving consensus among the nodes about which data (transactions, blocks) is added to the blockchain.
 
-10. Full Nodes are special in that:
-  a) they keep track of transactions not yet added to the bockchain
+10. Full nodes are special in that:
+  a) they keep track of transactions not yet added to the blockchain
   b) they are connected to every other node in the network
   c) they keep track of the blockchain
   d) they are responsible for validating transactions
   correct: c)
-  explanation:
+    explanation: Full nodes store the complete blockchain. Validating and propagating transactions is done by every node, and nodes are not directly connected to all other nodes.
 
-  11. If a new node wants to join the network, they can contact a:
-  a) Full Node
-  b) Miner
-  c) Seed Node
-  d) any Node
+11. If a new node wants to join the network, it can contact a:
+  a) full node
+  b) miner
+  c) seed node
+  d) any node
   correct: c)
-    explanation:
+    explanation: A new node must discover at least one existing node. One option is seed nodes: long-running, stable nodes that are preinstalled in the Bitcoin software.
 
-12. What is the trade-off of the peer network?:
-a)
-b)
-c) Too many messages or higher propagation delay and lower connectivity
-d)
-correct: c)
-explanation:
+12. What is the trade-off in choosing the number of peers?
+  a) too many peers: higher propagation delay
+  b) too few peers: too many messages are sent around
+  c) too many messages or higher propagation delay and lower connectivity
+  d) too many peers: lower connectivity
+  correct: c)
+    explanation: A high number of peers means too many messages are sent around. A low number means higher propagation delay and lower connectivity.
 
-13. TRUE or FALSE: Users are anonymous
-a) TRUE
-b) FALSE
-correct: b)
-explanation:
+13. TRUE or FALSE: Users are anonymous.
+  a) TRUE
+  b) FALSE
+  correct: b)
+    explanation: Users are pseudonymous. They appear under addresses, and the network topology may allow linking addresses to IP addresses, which can make users identifiable to some extent.
 
-14. Why are hash functions necessary?:
-a) to ensure accuracy and completeness of data
-b)
-c)
-d) prevent attackers from manipulating data
-correct: a) and d)
-explanation:
+14. Why are hash functions necessary?
+  a) to ensure accuracy and completeness of data
+  b) to encrypt data so that nobody can read it
+  c) to make users fully anonymous
+  d) to prevent attackers from manipulating data
+  correct: a) and d)
+    explanation: Hash values are short fingerprints that allow checking efficiently whether a data copy is equal to the original, which protects integrity. Hash functions do not encrypt data.
 
 15. Evaluate if this formula of hash functions is correct: H: {0,1}* -> {0,1}^n
-a) Correct
-b) Incorrect
-correct: a)
-explanation
+  a) Correct
+  b) Incorrect
+  correct: a)
+    explanation: A hash function maps bitstrings of arbitrary length ({0,1}*) to bitstrings of fixed length n ({0,1}^n). Typical values for n are 256 and 512.
 
-16. The Hash fucntion can be expressed as: H: {0,1}* -> {0,1}^n 
-     What does it mean?
-a)
-b)
-c) bitstrings of arbitrary length are converted into bitstringths of fixed length
-d)
-correct: c)
-explanation:
+16. The hash function can be expressed as H: {0,1}* -> {0,1}^n. What does it mean?
+  a) bitstrings of fixed length are converted into bitstrings of arbitrary length
+  b) bitstrings of arbitrary length are converted into bitstrings of the same length
+  c) bitstrings of arbitrary length are converted into bitstrings of fixed length
+  d) bitstrings of arbitrary length are encrypted into bitstrings that can be decrypted again
+  correct: c)
+    explanation: {0,1}* stands for bitstrings of any length, {0,1}^n for bitstrings of exactly n bits.
 
-17. Write down the general Hash function formula.
-See solution: H: {0,1}* -> {0,1}^n
-
-18. The sender gives the hash value of the message to the receiver. What does the receiver check?
-a)
-b) He checks whether the original message and its hash value match with the hash value he has been given.
-c)
-d)
-correct: b)
-explanation:
-
-19. What is NOT a security requirement of hash functions?
-a) collision resistance
-b) deterministic
-c) 
-d) Preimage resistance
-corrrect: b) and c)
-explanation:
-
-20. Collision Resistance means it should be hard to find two message:
-a) x = x'
-b) x =/= x'
-correct: b)
-explanation: 
-
-21. Preimage Resistance means given hash value h it should be hard to find a message x such that:
-a) H(x) =/= h
-b) H(x) = x
-c) H(x) =/= x
-d) H(x) = h
-correct: d)
-explanation: 
-
-22. Second Preimage Resistance means given a message x and its hash value h, it should be hard to find a message x' =/= such that:
-a) H(x) = h
-b) H(x') = h
-c) H(x) =/= h
-d) H(x') =/= h
-correct: b)
-explanation:
-
-23. What does th Random Oracle Model of Hash functions say?
-a) Hash functions are completely unpredictable
-b) there are no shortcuts to computing the hash functions
-c)
-d)
-correct: a) and b)
-explanation:
-
+17. Write down the general hash
 24. What component is missing from this block?
 [png: missing_merkleroot.png]
 type: Merkle Root or merkle root
