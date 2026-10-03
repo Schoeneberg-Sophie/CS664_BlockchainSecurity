@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Study Quiz</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; max-width: 600px; margin: 50px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #f7931a; }
+        #progress { font-size: 14px; color: #64748b; margin-bottom: 8px; }
+        .question-container { margin-bottom: 20px; font-size: 18px; }
+        #question-image { display: none; max-width: 100%; margin: 0 0 20px; border: 1px solid #e2e8f0; border-radius: 5px; }
+        .hint { font-size: 14px; color: #64748b; margin: -10px 0 12px; }
+        .options button { display: block; width: 100%; padding: 12px; margin: 8px 0; background-color: #e2e8f0; border: 2px solid transparent; border-radius: 5px; cursor: pointer; font-size: 16px; text-align: left; transition: 0.2s; }
+        .options button:hover:not(:disabled) { background-color: #cbd5e1; }
+        .options button:disabled { cursor: default; }
+        .options button.selected { background-color: #fde68a; border-color: #f7931a; }
+        .options button.correct { background-color: #4ade80; color: white; border-color: transparent; }
+        .options button.wrong { background-color: #f87171; color: white; border-color: transparent; }
+        .options button.missed { background-color: #dcfce7; border: 2px dashed #22c55e; color: #166534; }
+        #text-answer { width: 100%; box-sizing: border-box; padding: 12px; font-size: 16px; border: 2px solid #cbd5e1; border-radius: 5px; }
+        #text-answer.correct { border-color: #4ade80; background-color: #f0fdf4; }
+        #text-answer.wrong { border-color: #f87171; background-color: #fef2f2; }
+        .action-btn { display: none; width: 100%; padding: 12px; background-color: #f7931a; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 15px; }
+        .action-btn:hover:not(:disabled) { background-color: #e08214; }
+        .action-btn:disabled { background-color: #cbd5e1; cursor: default; }
+        #feedback { display: none; margin-top: 15px; padding: 12px; border-radius: 5px; font-size: 15px; line-height: 1.4; }
+        #feedback.ok { background-color: #f0fdf4; border-left: 4px solid #4ade80; }
+        #feedback.bad { background-color: #fef2f2; border-left: 4px solid #f87171; }
+        #result { text-align: center; font-size: 20px; font-weight: bold; margin-top: 20px; }
+    </style>
+</head>
+<body>
+
+    <h1>Bitcoin Study Quiz</h1>
+    <div id="quiz">
+        <div id="progress"></div>
+        <div class="question-container" id="question">Loading question...</div>
+        <img id="question-image" alt="Question image">
+        <div class="hint" id="hint"></div>
+        <div class="options" id="options"></div>
+        <button class="action-btn" id="check-btn" onclick="submitCurrent()">Check answer</button>
+        <div id="feedback"></div>
+        <button class="action-btn" id="next-btn" onclick="nextQuestion()">Next Question</button>
+    </div>
+    <div id="result"></div>
+
+    <!-- Questions live in quizData.js (same folder as this file) -->
+    <script src="quizData.js"></script>
+    <script>
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let answered = false;
+        let selectedKeys = new Set();
+
+        const progressElement = document.getElementById("progress");
+        const questionElement = document.getElementById("question");
+        const imageElement = document.getElementById("question-image");
+        const hintElement = document.getElementById("hint");
+        const optionsElement = document.getElementById("options");
+        const checkButton = document.getElementById("check-btn");
+        const nextButton = document.getElementById("next-btn");
+        const feedbackElement = document.getElementById("feedback");
+        const resultElement = document.getElementById("result");
+
+        function loadQuestion() {
+            const q = quizData[currentQuestionIndex];
+            answered = false;
+            selectedKeys = new Set();
+
+            progressElement.textContent = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            questionElement.textContent = q.question;
+            optionsElement.innerHTML = "";
+            feedbackElement.style.display = "none";
+            feedbackElement.className = "";
+            nextButton.style.display = "none";
+            checkButton.style.display = "none";
+            hintElement.textContent = "";
+
+            if (q.image) {
+                imageElement.src = q.image;
+                imageElement.style.display = "block";
+            } else {
+                imageElement.removeAttribute("src");
+                imageElement.style.display = "none";
+            }
+
+            if (q.type === "text") {
+                const input = document.createElement("input");
+                input.type = "text";
+                input.id = "text-answer";
+                input.placeholder = "Type your answer...";
+                input.autocomplete = "off";
+                input.addEventListener("input", () => { checkButton.disabled = input.value.trim() === ""; });
+                input.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" && !answered && input.value.trim() !== "") submitCurrent();
+                });
+                optionsElement.appendChild(input);
+                checkButton.style.display = "block";
+                checkButton.disabled = true;
+                input.focus();
+                return;
+            }
+
+            if (q.type === "multiple") {
+                hintElement.textContent = "Select all that apply.";
+                checkButton.style.display = "block";
+                checkButton.disabled = true;
+            }
+
+            Object.entries(q.options).forEach(([key, text]) => {
+                const button = document.createElement("button");
+                button.textContent = text;
+                button.dataset.key = key;
+                button.onclick = () => selectOption(key, button);
+                optionsElement.appendChild(button);
+            });
+        }
+
+        function selectOption(key, button) {
+            if (answered) return;
+            const q = quizData[currentQuestionIndex];
+
+            if (q.type === "single") {
+                submitAnswer([key]);
+                return;
+            }
+
+            // multiple choice: toggle selection, check later
+            if (selectedKeys.has(key)) {
+                selectedKeys.delete(key);
+                button.classList.remove("selected");
+            } else {
+                selectedKeys.add(key);
+                button.classList.add("selected");
+            }
+            checkButton.disabled = selectedKeys.size === 0;
+        }
+
+        function submitCurrent() {
+            if (answered) return;
+            const q = quizData[currentQuestionIndex];
+            if (q.type === "text") {
+                submitAnswer(document.getElementById("text-answer").value);
+            } else {
+                submitAnswer([...selectedKeys]);
+            }
+        }
+
+        function submitAnswer(given) {
+            const q = quizData[currentQuestionIndex];
+            answered = true;
+            const isCorrect = checkAnswer(q, given);
+            if (isCorrect) score++;
+
+            if (q.type === "text") {
+                const input = document.getElementById("text-answer");
+                input.disabled = true;
+                input.classList.add(isCorrect ? "correct" : "wrong");
+            } else {
+                const chosen = new Set(given);
+                for (const btn of optionsElement.getElementsByTagName("button")) {
+                    const key = btn.dataset.key;
+                    const isRight = q.correct.includes(key);
+                    btn.disabled = true;
+                    btn.classList.remove("selected");
+                    if (chosen.has(key)) {
+                        btn.classList.add(isRight ? "correct" : "wrong");
+                    } else if (isRight) {
+                        // correct option the user did not pick
+                        btn.classList.add(q.type === "multiple" ? "missed" : "correct");
+                    }
+                }
+            }
+
+            checkButton.style.display = "none";
+            showFeedback(q, isCorrect);
+
+            nextButton.textContent = currentQuestionIndex + 1 < quizData.length ? "Next Question" : "Show Result";
+            nextButton.style.display = "block";
+        }
+
+        function showFeedback(q, isCorrect) {
+            feedbackElement.innerHTML = "";
+            const title = document.createElement("strong");
+            title.textContent = isCorrect ? "Correct! " : "Not quite. ";
+            feedbackElement.appendChild(title);
+
+            if (!isCorrect && q.type === "text") {
+                feedbackElement.appendChild(document.createTextNode(`Accepted answer: ${q.answers[0]}. `));
+            }
+            if (q.explanation) {
+                feedbackElement.appendChild(document.createTextNode(q.explanation));
+            }
+            feedbackElement.className = isCorrect ? "ok" : "bad";
+            feedbackElement.style.display = "block";
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                loadQuestion();
+            } else {
+                showResult();
+            }
+        }
+
+        function showResult() {
+            document.getElementById("quiz").style.display = "none";
+            const percent = Math.round((score / quizData.length) * 100);
+            resultElement.innerHTML = `Quiz Completed! <br> Your Score: ${score} out of ${quizData.length} (${percent}%)`;
+            const restart = document.createElement("button");
+            restart.className = "action-btn";
+            restart.style.display = "block";
+            restart.textContent = "Restart Quiz";
+            restart.onclick = restartQuiz;
+            resultElement.appendChild(restart);
+        }
+
+        function restartQuiz() {
+            currentQuestionIndex = 0;
+            score = 0;
+            resultElement.innerHTML = "";
+            document.getElementById("quiz").style.display = "block";
+            loadQuestion();
+        }
+
+        loadQuestion();
+    </script>
+</body>
+</html>
