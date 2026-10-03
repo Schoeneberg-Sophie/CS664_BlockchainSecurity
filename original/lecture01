@@ -84,4 +84,329 @@ correct: a) and b)
   correct: c)
     explanation:
 
-12. 
+12. What is the trade-off of the peer network?:
+a)
+b)
+c) Too many messages or higher propagation delay and lower connectivity
+d)
+correct: c)
+explanation:
+
+13. TRUE or FALSE: Users are anonymous
+a) TRUE
+b) FALSE
+correct: b)
+explanation:
+
+14. Why are hash functions necessary?:
+a) to ensure accuracy and completeness of data
+b)
+c)
+d) prevent attackers from manipulating data
+correct: a) and d)
+explanation:
+
+15. Evaluate if this formula of hash functions is correct: H: {0,1}* -> {0,1}^n
+a) Correct
+b) Incorrect
+correct: a)
+explanation
+
+16. The Hash fucntion can be expressed as: H: {0,1}* -> {0,1}^n 
+     What does it mean?
+a)
+b)
+c) bitstrings of arbitrary length are converted into bitstringths of fixed length
+d)
+correct: c)
+explanation:
+
+17. Write down the general Hash function formula.
+See solution: H: {0,1}* -> {0,1}^n
+
+18. The sender gives the hash value of the message to the receiver. What does the receiver check?
+a)
+b) He checks whether the original message and its hash value match with the hash value he has been given.
+c)
+d)
+correct: b)
+explanation:
+
+19. What is NOT a security requirement of hash functions?
+a) collision resistance
+b) deterministic
+c) 
+d) Preimage resistance
+corrrect: b) and c)
+explanation:
+
+20. Collision Resistance means it should be hard to find two message:
+a) x = x'
+b) x =/= x'
+correct: b)
+explanation: 
+
+21. Preimage Resistance means given hash value h it should be hard to find a message x such that:
+a) H(x) =/= h
+b) H(x) = x
+c) H(x) =/= x
+d) H(x) = h
+correct: d)
+explanation: 
+
+22. Second Preimage Resistance means given a message x and its hash value h, it should be hard to find a message x' =/= such that:
+a) H(x) = h
+b) H(x') = h
+c) H(x) =/= h
+d) H(x') =/= h
+correct: b)
+explanation:
+
+23. What does th Random Oracle Model of Hash functions say?
+a) Hash functions are completely unpredictable
+b) there are no shortcuts to computing the hash functions
+c)
+d)
+correct: a) and b)
+explanation:
+
+24. What component is missing from this block?
+[png: missing_merkleroot.png]
+type: Merkle Root or merkle root
+
+25. What component is missing from this block?
+[png: missing_nonce.png]
+type: Nonce or nonce
+
+26. What component is missing from this block?
+[png: missing_timestamp.png]
+type: Timestamp or timestamp
+
+12. What is 1 bitcoin (₿) in satoshis?
+  a) 1,000
+  b) 1 million
+  c) 100 million
+  d) 1 billion
+  correct: c)
+    explanation: 1 ₿ = 100 million satoshis. The satoshi is the smallest unit and is named after the author of the Bitcoin white paper.
+
+13. TRUE or FALSE: "Bitcoin" (capital B) refers to the system, "bitcoin" (small b) refers to the currency unit.
+  a) TRUE
+  b) FALSE
+  correct: a)
+    explanation: Capital B = the Bitcoin system, small b = the currency unit.
+
+14. Which of the following are altcoins?
+  a) Litecoin
+  b) Euro
+  c) Ether
+  d) US dollar
+  correct: a) and c)
+    explanation: An altcoin is any cryptocurrency other than Bitcoin. Euro and US dollar are fiat currencies (government-authorized money).
+
+15. Which statements describe an unstructured peer-to-peer network like Bitcoin's?
+  a) All nodes are equal, there are no "special" nodes
+  b) A central server coordinates all communication
+  c) Every node is directly connected to every other node
+  d) All nodes are responsible for providing network services
+  correct: a) and d)
+    explanation: Each node is connected directly or indirectly to any other node, not necessarily directly (so c is wrong). There is no central coordinator.
+
+16. After a new node has connected to its first peer, what can happen next?
+  a) It can request further node addresses from that peer
+  b) It must be approved by all other nodes first
+  c) The peer can forward the new node's address to its own peers
+  d) It automatically receives a copy of every other node's wallet
+  correct: a) and c)
+    explanation: Requesting addresses helps the new node find more peers. Forwarding its address makes the new node better known in the network.
+
+17. How is data propagated within the Bitcoin network?
+  a) The sender transmits it directly to every node
+  b) Message flooding: each node forwards new data to its peers, which forward it on
+  c) A central server distributes it
+  d) Only miners forward data
+  correct: b)
+    explanation: Flooding gives all nodes a consistent view without any central party.
+
+18. To reduce redundant traffic, a node first announces new data by sending:
+  a) the complete data
+  b) its hash value (a kind of short fingerprint)
+  c) a digital signature of the data
+  d) the nonce
+  correct: b)
+    explanation: Peers check whether they already know the hash. Only if not, they request the full data.
+
+19. What is a disadvantage if a node maintains too few peers?
+  a) Too many messages are sent around
+  b) Higher propagation delay and lower connectivity
+  c) The node can no longer validate transactions
+  d) The node's addresses become public
+  correct: b)
+    explanation: Too many peers causes message overhead, too few causes delay and weaker connectivity. This is the tradeoff in choosing the number of peers.
+
+20. Why does Bitcoin try to hide the network topology?
+  a) To make transactions faster
+  b) Because the topology might allow linking Bitcoin addresses to IP addresses
+  c) To reduce the size of the blockchain
+  d) To prevent double spending
+  correct: b)
+    explanation: Users are only pseudonymous. Linking addresses to IP addresses could make users identifiable.
+
+21. Which techniques does Bitcoin use to hide the network topology?
+  a) Returning only a random subset of a peer's address list
+  b) Forwarding data only after a randomly chosen time delay
+  c) Forwarding data immediately to all peers
+  d) Encrypting the blockchain
+  correct: a) and b)
+    explanation: The random delay prevents others from determining exactly when data reached a node.
+
+22. TRUE or FALSE: The Bitcoin blockchain only stores the current balance of each address.
+  a) TRUE
+  b) FALSE
+  correct: b)
+    explanation: The blockchain stores the complete transaction history, not just balances.
+
+23. Digital signatures allow to check that the right wallet sent a transaction. What do they NOT prevent on their own?
+  a) A transaction being sent by a wallet that does not own the coins
+  b) Double spending
+  c) A transaction being modified after it was signed
+  d) None of the above
+  correct: b)
+    explanation: A malicious wallet could still sign several transactions spending the same coins. This is why the full transaction history is kept.
+
+24. A transaction is accepted if:
+  a) it is authentic (really sent by the owner of the bitcoins)
+  b) the sender does not spend bitcoins it does not have (anymore)
+  c) it was approved by a central authority
+  d) it was sent from a known IP address
+  correct: a) and b)
+    explanation: The second condition requires checking previous transactions. The inputs refer to unspent outputs of earlier transactions.
+
+25. The inputs of a transaction refer to:
+  a) the outputs of previous transactions (unspent coins)
+  b) the wallet's private key
+  c) the current block height
+  d) the Merkle root
+  correct: a)
+    explanation: Coins to be spent are references to unspent outputs of earlier transactions.
+
+26. Roughly how often are transactions grouped into a new block?
+  a) every second
+  b) every minute
+  c) every 10 minutes
+  d) every 24 hours
+  correct: c)
+    explanation: Each new block increases the block height by 1. The first block (height 0) is the genesis block.
+
+27. Which of the following are fields of the block header?
+  a) Previous Block Hash
+  b) Merkle Root
+  c) Nonce
+  d) Sender address
+  correct: a), b) and c)
+    explanation: The header contains version, previous block hash, Merkle root, timestamp, difficulty target and nonce.
+
+28. How large is the block header?
+  a) 32 bytes
+  b) 80 bytes
+  c) 256 bytes
+  d) variable size
+  correct: b)
+    explanation: 4 (version) + 32 (previous block hash) + 32 (Merkle root) + 4 (timestamp) + 4 (difficulty target) + 4 (nonce) = 80 bytes.
+
+29. How does a block reference its predecessor?
+  a) Its Previous Block Hash field contains the double SHA-256 hash of the previous block's header
+  b) It contains a copy of all previous transactions
+  c) It contains the previous block's height
+  d) It contains the previous block's timestamp
+  correct: a)
+    explanation: This links the blocks into a chain. Changing an old block changes its hash and breaks the link.
+
+30. Which statements about a hash function H: {0,1}* → {0,1}^n are true?
+  a) It is deterministic
+  b) It maps inputs of arbitrary length to outputs of fixed length
+  c) The output gets longer for longer inputs
+  d) Hashing the same input twice can give different outputs
+  correct: a) and b)
+    explanation: Typical output lengths n are 256 or 512 bits.
+
+31. Which are the three security requirements of a cryptographic hash function?
+  a) Collision resistance
+  b) Preimage resistance
+  c) Second-preimage resistance
+  d) Reversibility
+  correct: a), b) and c)
+    explanation: A secure hash function should not be reversible, which is the point of preimage resistance.
+
+32. For an n-bit hash function, what is the effort for finding a collision?
+  a) O(n)
+  b) O(2^(n/2))
+  c) O(2^n)
+  d) O(2^(2n))
+  correct: b)
+    explanation: Finding a collision is easier than finding a preimage (O(2^n)).
+
+33. "Given a hash value h, it should be hard to find a message x such that H(x) = h." This describes:
+  a) Collision resistance
+  b) Preimage resistance
+  c) Second-preimage resistance
+  correct: b)
+    explanation: Such an x is called a preimage of h.
+
+34. "Given x and H(x), it should be hard to find x' ≠ x such that H(x') = H(x)." This describes:
+  a) Collision resistance
+  b) Preimage resistance
+  c) Second-preimage resistance
+  correct: c)
+    explanation: In a collision, the attacker may choose both messages freely. Here, one message is already fixed.
+
+35. TRUE or FALSE: In the Random Oracle Model, knowing H(x_i) for many inputs x_i helps to predict H(x) for a new input x.
+  a) TRUE
+  b) FALSE
+  correct: b)
+    explanation: H behaves like a black box with completely unpredictable output. There is no shortcut other than computing H(x).
+
+36. In a Merkle tree with leaves x1, x2, x3, x4, how is the root computed?
+  a) H(x1 || x2 || x3 || x4)
+  b) H( H(x1 || x2) || H(x3 || x4) )
+  c) H(x1) || H(x4)
+  d) H(x1 || x4)
+  correct: b)
+    explanation: Each parent node is the hash of its two child nodes. The root serves as the fingerprint of the whole set (in Bitcoin: the transactions of a block).
+
+37. To prove that x3 is contained in the set (leaves x1..x4), what must be provided in addition to x3?
+  a) x1 and x2
+  b) x4 and y1
+  c) y2 only
+  d) the complete set
+  correct: b)
+    explanation: With x4 and y1, the verifier can recompute the path from x3 to the root and compare it with the known root. The full set is not needed.
+
+38. Which property of hash functions prevents a sender from preparing two different messages with the same commitment and choosing later which to reveal?
+  a) Collision resistance
+  b) Preimage resistance
+  c) Second-preimage resistance
+  correct: a)
+    explanation: Preimage resistance keeps the committed message secret, and second-preimage resistance prevents replacing the chosen message afterwards.
+
+39. Is the algorithm "x mod 1337, padded to 4 digits" a hash function? Is it a cryptographic hash function?
+  a) Hash function: yes, cryptographic: yes
+  b) Hash function: yes, cryptographic: no
+  c) Hash function: no, cryptographic: no
+  correct: b)
+    explanation: It is deterministic and has a fixed output length, but H(0) = H(1337) is a trivial collision, and preimages are easy to find.
+
+40. Which change requires a hardfork?
+  a) Tightening the rules so that previously valid blocks become invalid
+  b) Changing the rules to allow blocks that older nodes reject
+  c) Any change to the wallet software
+  correct: b)
+    explanation: A hardfork can cause a lasting chain split. In a softfork, blocks following the new rules remain valid under the old rules.
+
+41. TRUE or FALSE: Coins are stored inside the wallet.
+  a) TRUE
+  b) FALSE
+  correct: b)
+    explanation: A wallet manages keys and addresses and creates or signs transactions. Coins are recorded through transactions on the blockchain.
+
+
