@@ -4,7 +4,7 @@
 // - text: answers = [accepted answers]; matching ignores case and spaces
 // - image (optional): path to an image shown above the question
 
-const quizData = [
+const quizData_01 = [
   {
     id: 1,
     type: "single",
