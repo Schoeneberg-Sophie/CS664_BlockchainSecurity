@@ -5,12 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS664 Blockchain Security Quiz</title>
     <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; max-width: 600px; margin: 50px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: #f7931a; }
-        #setup-screen { text-align: center; }
-        .setup-group { margin: 15px 0; text-align: left; background: #f8fafc; padding: 15px; border-radius: 6px; }
-        .setup-group label { display: block; margin-bottom: 8px; font-weight: bold; }
-        .setup-group select, .setup-group input { width: 100%; padding: 10px; font-size: 16px; border: 2px solid #cbd5e1; border-radius: 5px; box-sizing: border-box; }
+        body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
+        .app-container { display: flex; width: 100%; max-width: 850px; background: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); overflow: hidden; min-height: 500px; }
+        
+        /* Sidebar Styles */
+        .sidebar { width: 250px; background: #f8fafc; border-right: 1px solid #e2e8f0; padding: 20px; box-sizing: border-box; }
+        .sidebar h2 { font-size: 18px; color: #f7931a; margin-top: 0; margin-bottom: 15px; text-align: center; }
+        .lecture-list { display: flex; flex-direction: column; gap: 10px; }
+        .lecture-btn { width: 100%; padding: 10px 12px; background-color: #e2e8f0; border: 2px solid transparent; border-radius: 5px; cursor: pointer; font-size: 14px; text-align: left; transition: 0.2s; font-weight: bold; }
+        .lecture-btn:hover { background-color: #cbd5e1; }
+        .lecture-btn.active { background-color: #fde68a; border-color: #f7931a; color: #78350f; }
+
+        /* Main Content Styles */
+        .content { flex: 1; padding: 30px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
+        h1 { color: #f7931a; margin-top: 0; font-size: 24px; text-align: center; margin-bottom: 20px; }
+        
+        #placeholder-screen { text-align: center; color: #64748b; font-size: 16px; }
+        
         #progress { font-size: 14px; color: #64748b; margin-bottom: 8px; }
         .question-container { margin-bottom: 20px; font-size: 18px; }
         #question-image { display: none; max-width: 100%; margin: 0 0 20px; border: 1px solid #e2e8f0; border-radius: 5px; }
@@ -31,59 +42,60 @@
         #feedback { display: none; margin-top: 15px; padding: 12px; border-radius: 5px; font-size: 15px; line-height: 1.4; }
         #feedback.ok { background-color: #f0fdf4; border-left: 4px solid #4ade80; }
         #feedback.bad { background-color: #fef2f2; border-left: 4px solid #f87171; }
-        #result { text-align: center; font-size: 20px; font-weight: bold; margin-top: 20px; }
+        #result { text-align: center; font-size: 22px; font-weight: bold; margin-top: 20px; line-height: 1.5; color: #333; }
     </style>
 </head>
 <body>
 
-    <h1>Blockchain Security Quiz</h1>
+    <div class="app-container">
+        <!-- Left Sidebar for Lecture Selection -->
+        <div class="sidebar">
+            <h2>Lectures</h2>
+            <div class="lecture-list">
+                <button class="lecture-btn" onclick="startQuiz('all', this)">All Lectures</button>
+                <button class="lecture-btn" onclick="startQuiz('01', this)">Lecture 1</button>
+                <!-- Add more lecture buttons here as needed:
+                <button class="lecture-btn" onclick="startQuiz('02', this)">Lecture 2</button> -->
+            </div>
+        </div>
 
-    <!-- Setup Screen for Lecture Selection -->
-    <div id="setup-screen">
-        <div class="setup-group">
-            <label for="lecture-select">Select Lecture:</label>
-            <select id="lecture-select">
-                <option value="all">All Lectures</option>
-                <option value="01">Lecture 1</option>
-                <option value="02">Lecture 2</option>
-                <!-- Add more options here as you add more lectures -->
-            </select>
+        <!-- Main Content Area -->
+        <div class="content">
+            <h1>Blockchain Security Quiz</h1>
+
+            <!-- Initial Placeholder Screen -->
+            <div id="placeholder-screen">
+                <p>Select a lecture from the sidebar on the left to start the quiz immediately.</p>
+            </div>
+
+            <!-- Active Quiz Screen -->
+            <div id="quiz" style="display: none;">
+                <div id="progress"></div>
+                <div class="question-container" id="question">Loading question...</div>
+                <img id="question-image" alt="Question image">
+                <div class="hint" id="hint"></div>
+                <div class="options" id="options"></div>
+                <button class="action-btn" id="check-btn" style="display:none;" onclick="submitCurrent()">Check answer</button>
+                <div id="feedback"></div>
+                <button class="action-btn" id="next-btn" style="display:none;" onclick="nextQuestion()">Next Question</button>
+            </div>
+            
+            <div id="result"></div>
         </div>
-        <div class="setup-group">
-            <label for="question-count">Number of Questions per Session:</label>
-            <input type="number" id="question-count" value="10" min="1" max="50">
-        </div>
-        <button class="action-btn" onclick="startQuiz()">Start Quiz</button>
     </div>
 
-    <!-- Active Quiz Screen -->
-    <div id="quiz" style="display: none;">
-        <div id="progress"></div>
-        <div class="question-container" id="question">Loading question...</div>
-        <img id="question-image" alt="Question image">
-        <div class="hint" id="hint"></div>
-        <div class="options" id="options"></div>
-        <button class="action-btn" id="check-btn" style="display:none;" onclick="submitCurrent()">Check answer</button>
-        <div id="feedback"></div>
-        <button class="action-btn" id="next-btn" style="display:none;" onclick="nextQuestion()">Next Question</button>
-    </div>
-    
-    <div id="result"></div>
-
-    <!-- Script placeholders for different lectures (Load them conditionally or all at once) -->
+    <!-- Script placeholders for different lectures -->
     <script src="questions/quizData_01.js"></script>
     <!-- <script src="questions/quizData_02.js"></script> -->
 
     <script>
-        // Store datasets in a central container object
-        // If files assign variables like `quizData_01`, map them here:
         const availableLectures = {
             "01": typeof quizData_01 !== 'undefined' ? quizData_01 : [],
             // "02": typeof quizData_02 !== 'undefined' ? quizData_02 : []
         };
 
         let sessionQuestions = [];
-        let questionWeights = []; // Tracks weights for each active question in the session
+        let questionWeights = []; 
         let currentQuestionIndex = 0;
         let activeQuestionPointer = 0;
         let score = 0;
@@ -92,7 +104,7 @@
         let answered = false;
         let selectedKeys = new Set();
 
-        const setupScreen = document.getElementById("setup-screen");
+        const placeholderScreen = document.getElementById("placeholder-screen");
         const quizScreen = document.getElementById("quiz");
         const progressElement = document.getElementById("progress");
         const questionElement = document.getElementById("question");
@@ -104,16 +116,16 @@
         const feedbackElement = document.getElementById("feedback");
         const resultElement = document.getElementById("result");
 
-        function startQuiz() {
-            const selectedLecture = document.getElementById("lecture-select").value;
-            targetQuestionCount = parseInt(document.getElementById("question-count").value) || 10;
+        function startQuiz(selectedLecture, btnElement) {
+            // Update active state on sidebar buttons
+            document.querySelectorAll('.lecture-btn').forEach(b => b.classList.remove('active'));
+            if (btnElement) btnElement.classList.add('active');
 
             let pool = [];
             if (selectedLecture === "all") {
-                Object.values(availableLectures.forEach ? availableLectures : Object.keys(availableLectures)).forEach(key => {
+                Object.keys(availableLectures).forEach(key => {
                     if (availableLectures[key]) pool = pool.concat(availableLectures[key]);
                 });
-                // Fallback if global quizData exists from your old setup
                 if (pool.length === 0 && typeof quizData !== 'undefined') pool = quizData;
             } else {
                 pool = availableLectures[selectedLecture] || [];
@@ -124,23 +136,23 @@
                 return;
             }
 
-            // Shuffle pool and slice up to target count
+            // Use all questions in the pool since question count option was removed
             const shuffledPool = [...pool].sort(() => Math.random() - 0.5);
-            sessionQuestions = shuffledPool.slice(0, Math.min(targetQuestionCount, shuffledPool.length));
+            sessionQuestions = shuffledPool;
+            targetQuestionCount = sessionQuestions.length;
             
-            // Initialize all weights to 1 (equal likelihood initially)
             questionWeights = new Array(sessionQuestions.length).fill(1);
 
             score = 0;
             totalAnswered = 0;
             currentQuestionIndex = getWeightedRandomIndex();
 
-            setupScreen.style.display = "none";
+            placeholderScreen.style.display = "none";
+            resultElement.innerHTML = "";
             quizScreen.style.display = "block";
             loadQuestion();
         }
 
-        // Pick a question index based on current weights (higher weight = higher chance)
         function getWeightedRandomIndex() {
             const totalWeight = questionWeights.reduce((sum, w) => sum + w, 0);
             let randomNum = Math.random() * totalWeight;
@@ -239,14 +251,12 @@
             const q = sessionQuestions[activeQuestionPointer];
             answered = true;
             totalAnswered++;
-            const isCorrect = checkAnswer(q, given); // Assumes helper `checkAnswer` logic is defined elsewhere or built-in
+            const isCorrect = checkAnswer(q, given);
             
             if (isCorrect) {
                 score++;
-                // Decrease weight slightly if answered correctly so it appears less often
                 questionWeights[activeQuestionPointer] = Math.max(1, questionWeights[activeQuestionPointer] - 0.5);
             } else {
-                // Increase weight significantly if answered wrong so it appears more often
                 questionWeights[activeQuestionPointer] += 2;
             }
 
@@ -304,17 +314,7 @@
         function showResult() {
             quizScreen.style.display = "none";
             const percent = Math.round((score / totalAnswered) * 100);
-            resultElement.innerHTML = `Quiz Completed! <br> Your Score: ${score} out of ${totalAnswered} (${percent}%)`;
-            const restart = document.createElement("button");
-            restart.className = "action-btn";
-            restart.textContent = "Back to Setup";
-            restart.onclick = restartQuiz;
-            resultElement.appendChild(restart);
-        }
-
-        function restartQuiz() {
-            resultElement.innerHTML = "";
-            setupScreen.style.display = "block";
+            resultElement.innerHTML = `Quiz Completed! <br><br> Your Score: ${score} out of ${totalAnswered} (${percent}%)<br><br><span style="font-size: 16px; font-weight: normal; color: #64748b;">You can now close this tab.</span>`;
         }
     </script>
 </body>
