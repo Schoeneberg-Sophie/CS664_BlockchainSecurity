@@ -3,10 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CS664 BlockchainSecurity Quiz</title>
+    <title>CS664 Blockchain Security Quiz</title>
     <style>
         body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; max-width: 600px; margin: 50px auto; padding: 20px; background: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
         h1 { text-align: center; color: #f7931a; }
+        #setup-screen { text-align: center; }
+        .setup-group { margin: 15px 0; text-align: left; background: #f8fafc; padding: 15px; border-radius: 6px; }
+        .setup-group label { display: block; margin-bottom: 8px; font-weight: bold; }
+        .setup-group select, .setup-group input { width: 100%; padding: 10px; font-size: 16px; border: 2px solid #cbd5e1; border-radius: 5px; box-sizing: border-box; }
         #progress { font-size: 14px; color: #64748b; margin-bottom: 8px; }
         .question-container { margin-bottom: 20px; font-size: 18px; }
         #question-image { display: none; max-width: 100%; margin: 0 0 20px; border: 1px solid #e2e8f0; border-radius: 5px; }
@@ -21,7 +25,7 @@
         #text-answer { width: 100%; box-sizing: border-box; padding: 12px; font-size: 16px; border: 2px solid #cbd5e1; border-radius: 5px; }
         #text-answer.correct { border-color: #4ade80; background-color: #f0fdf4; }
         #text-answer.wrong { border-color: #f87171; background-color: #fef2f2; }
-        .action-btn { display: none; width: 100%; padding: 12px; background-color: #f7931a; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 15px; }
+        .action-btn { display: block; width: 100%; padding: 12px; background-color: #f7931a; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 15px; }
         .action-btn:hover:not(:disabled) { background-color: #e08214; }
         .action-btn:disabled { background-color: #cbd5e1; cursor: default; }
         #feedback { display: none; margin-top: 15px; padding: 12px; border-radius: 5px; font-size: 15px; line-height: 1.4; }
@@ -33,26 +37,63 @@
 <body>
 
     <h1>Blockchain Security Quiz</h1>
-    <div id="quiz">
+
+    <!-- Setup Screen for Lecture Selection -->
+    <div id="setup-screen">
+        <div class="setup-group">
+            <label for="lecture-select">Select Lecture:</label>
+            <select id="lecture-select">
+                <option value="all">All Lectures</option>
+                <option value="01">Lecture 1</option>
+                <option value="02">Lecture 2</option>
+                <!-- Add more options here as you add more lectures -->
+            </select>
+        </div>
+        <div class="setup-group">
+            <label for="question-count">Number of Questions per Session:</label>
+            <input type="number" id="question-count" value="10" min="1" max="50">
+        </div>
+        <button class="action-btn" onclick="startQuiz()">Start Quiz</button>
+    </div>
+
+    <!-- Active Quiz Screen -->
+    <div id="quiz" style="display: none;">
         <div id="progress"></div>
         <div class="question-container" id="question">Loading question...</div>
         <img id="question-image" alt="Question image">
         <div class="hint" id="hint"></div>
         <div class="options" id="options"></div>
-        <button class="action-btn" id="check-btn" onclick="submitCurrent()">Check answer</button>
+        <button class="action-btn" id="check-btn" style="display:none;" onclick="submitCurrent()">Check answer</button>
         <div id="feedback"></div>
-        <button class="action-btn" id="next-btn" onclick="nextQuestion()">Next Question</button>
+        <button class="action-btn" id="next-btn" style="display:none;" onclick="nextQuestion()">Next Question</button>
     </div>
+    
     <div id="result"></div>
 
-    <!-- Questions live in quizData.js (same folder as this file) -->
+    <!-- Script placeholders for different lectures (Load them conditionally or all at once) -->
     <script src="questions/quizData_01.js"></script>
+    <!-- <script src="questions/quizData_02.js"></script> -->
+
     <script>
+        // Store datasets in a central container object
+        // If files assign variables like `quizData_01`, map them here:
+        const availableLectures = {
+            "01": typeof quizData_01 !== 'undefined' ? quizData_01 : [],
+            // "02": typeof quizData_02 !== 'undefined' ? quizData_02 : []
+        };
+
+        let sessionQuestions = [];
+        let questionWeights = []; // Tracks weights for each active question in the session
         let currentQuestionIndex = 0;
+        let activeQuestionPointer = 0;
         let score = 0;
+        let totalAnswered = 0;
+        let targetQuestionCount = 10;
         let answered = false;
         let selectedKeys = new Set();
 
+        const setupScreen = document.getElementById("setup-screen");
+        const quizScreen = document.getElementById("quiz");
         const progressElement = document.getElementById("progress");
         const questionElement = document.getElementById("question");
         const imageElement = document.getElementById("question-image");
@@ -63,12 +104,60 @@
         const feedbackElement = document.getElementById("feedback");
         const resultElement = document.getElementById("result");
 
+        function startQuiz() {
+            const selectedLecture = document.getElementById("lecture-select").value;
+            targetQuestionCount = parseInt(document.getElementById("question-count").value) || 10;
+
+            let pool = [];
+            if (selectedLecture === "all") {
+                Object.values(availableLectures.forEach ? availableLectures : Object.keys(availableLectures)).forEach(key => {
+                    if (availableLectures[key]) pool = pool.concat(availableLectures[key]);
+                });
+                // Fallback if global quizData exists from your old setup
+                if (pool.length === 0 && typeof quizData !== 'undefined') pool = quizData;
+            } else {
+                pool = availableLectures[selectedLecture] || [];
+            }
+
+            if (pool.length === 0) {
+                alert("No questions found for the selected lecture!");
+                return;
+            }
+
+            // Shuffle pool and slice up to target count
+            const shuffledPool = [...pool].sort(() => Math.random() - 0.5);
+            sessionQuestions = shuffledPool.slice(0, Math.min(targetQuestionCount, shuffledPool.length));
+            
+            // Initialize all weights to 1 (equal likelihood initially)
+            questionWeights = new Array(sessionQuestions.length).fill(1);
+
+            score = 0;
+            totalAnswered = 0;
+            currentQuestionIndex = getWeightedRandomIndex();
+
+            setupScreen.style.display = "none";
+            quizScreen.style.display = "block";
+            loadQuestion();
+        }
+
+        // Pick a question index based on current weights (higher weight = higher chance)
+        function getWeightedRandomIndex() {
+            const totalWeight = questionWeights.reduce((sum, w) => sum + w, 0);
+            let randomNum = Math.random() * totalWeight;
+            
+            for (let i = 0; i < questionWeights.length; i++) {
+                if (randomNum < questionWeights[i]) return i;
+                randomNum -= questionWeights[i];
+            }
+            return 0;
+        }
+
         function loadQuestion() {
-            const q = quizData[currentQuestionIndex];
+            const q = sessionQuestions[activeQuestionPointer];
             answered = false;
             selectedKeys = new Set();
 
-            progressElement.textContent = `Question ${currentQuestionIndex + 1} of ${quizData.length}`;
+            progressElement.textContent = `Question ${totalAnswered + 1} of ${targetQuestionCount}`;
             questionElement.textContent = q.question;
             optionsElement.innerHTML = "";
             feedbackElement.style.display = "none";
@@ -119,14 +208,13 @@
 
         function selectOption(key, button) {
             if (answered) return;
-            const q = quizData[currentQuestionIndex];
+            const q = sessionQuestions[activeQuestionPointer];
 
             if (q.type === "single") {
                 submitAnswer([key]);
                 return;
             }
 
-            // multiple choice: toggle selection, check later
             if (selectedKeys.has(key)) {
                 selectedKeys.delete(key);
                 button.classList.remove("selected");
@@ -139,7 +227,7 @@
 
         function submitCurrent() {
             if (answered) return;
-            const q = quizData[currentQuestionIndex];
+            const q = sessionQuestions[activeQuestionPointer];
             if (q.type === "text") {
                 submitAnswer(document.getElementById("text-answer").value);
             } else {
@@ -148,10 +236,19 @@
         }
 
         function submitAnswer(given) {
-            const q = quizData[currentQuestionIndex];
+            const q = sessionQuestions[activeQuestionPointer];
             answered = true;
-            const isCorrect = checkAnswer(q, given);
-            if (isCorrect) score++;
+            totalAnswered++;
+            const isCorrect = checkAnswer(q, given); // Assumes helper `checkAnswer` logic is defined elsewhere or built-in
+            
+            if (isCorrect) {
+                score++;
+                // Decrease weight slightly if answered correctly so it appears less often
+                questionWeights[activeQuestionPointer] = Math.max(1, questionWeights[activeQuestionPointer] - 0.5);
+            } else {
+                // Increase weight significantly if answered wrong so it appears more often
+                questionWeights[activeQuestionPointer] += 2;
+            }
 
             if (q.type === "text") {
                 const input = document.getElementById("text-answer");
@@ -167,7 +264,6 @@
                     if (chosen.has(key)) {
                         btn.classList.add(isRight ? "correct" : "wrong");
                     } else if (isRight) {
-                        // correct option the user did not pick
                         btn.classList.add(q.type === "multiple" ? "missed" : "correct");
                     }
                 }
@@ -176,7 +272,7 @@
             checkButton.style.display = "none";
             showFeedback(q, isCorrect);
 
-            nextButton.textContent = currentQuestionIndex + 1 < quizData.length ? "Next Question" : "Show Result";
+            nextButton.textContent = totalAnswered < targetQuestionCount ? "Next Question" : "Show Result";
             nextButton.style.display = "block";
         }
 
@@ -197,8 +293,8 @@
         }
 
         function nextQuestion() {
-            currentQuestionIndex++;
-            if (currentQuestionIndex < quizData.length) {
+            if (totalAnswered < targetQuestionCount) {
+                activeQuestionPointer = getWeightedRandomIndex();
                 loadQuestion();
             } else {
                 showResult();
@@ -206,26 +302,20 @@
         }
 
         function showResult() {
-            document.getElementById("quiz").style.display = "none";
-            const percent = Math.round((score / quizData.length) * 100);
-            resultElement.innerHTML = `Quiz Completed! <br> Your Score: ${score} out of ${quizData.length} (${percent}%)`;
+            quizScreen.style.display = "none";
+            const percent = Math.round((score / totalAnswered) * 100);
+            resultElement.innerHTML = `Quiz Completed! <br> Your Score: ${score} out of ${totalAnswered} (${percent}%)`;
             const restart = document.createElement("button");
             restart.className = "action-btn";
-            restart.style.display = "block";
-            restart.textContent = "Restart Quiz";
+            restart.textContent = "Back to Setup";
             restart.onclick = restartQuiz;
             resultElement.appendChild(restart);
         }
 
         function restartQuiz() {
-            currentQuestionIndex = 0;
-            score = 0;
             resultElement.innerHTML = "";
-            document.getElementById("quiz").style.display = "block";
-            loadQuestion();
+            setupScreen.style.display = "block";
         }
-
-        loadQuestion();
     </script>
 </body>
 </html>
