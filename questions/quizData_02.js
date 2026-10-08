@@ -1,6 +1,6 @@
 // Blockchain Security - Lecture 02 quiz
 // type: "single" = one correct answer, "multiple" = several correct answers
-const quizData_o2 = [
+const quizData_02 = [
   {
     id: 1,
     type: "single",
