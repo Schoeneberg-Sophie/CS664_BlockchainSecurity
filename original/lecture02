@@ -1,0 +1,181 @@
+lecture 02 quiz questions:
+
+1. What do miners have to provide to add a block to the blockchain?:
+a) the own it
+b) proof of work
+c) that their transaction is part of the block
+correct: b)
+explanation:
+
+2. What are the consequences when block B and B' are mined at the same time?
+a) no nodes are notified until the networks decides on the valid blockchain
+b) every node receives both blocks as valid blocks
+c) some nodes receive B as a valid block, others B'
+correct: c)
+explanation:
+
+3. What are orphan blocks?
+a) blocks not yet addded to the blockchain
+b)
+c) blocks that were added to the blockchain but later discarded as the nodes aggree on another block
+correct. c)
+explanation:
+
+4. What exactly is a fork?
+a) blocks being valid in one software, but not in the other
+b)
+c)
+correct: a)
+explanation:
+
+5. What is the partial inversion problem?
+a)
+b) given some pattern, find a message x such that H(x) matches the pattern ℓ
+c)
+correct: b)
+explanation:
+
+6. When minin a blockchain what does the pattern ℓ describe?
+a) the leading bits of ℓ have to be zero as a solution to the has value of message x
+b)
+c)
+correct: a)
+explanation:
+
+7. What components are necessary when solving the computational puzzle in mining?
+a) the blockheader
+b) the blockheader plus the transaction
+c) only certain parts of the blockheader such as the nonce
+correct: a)
+explanation:
+
+8. When solving the computational puzzle in mining, which components can be adjusted by the miner?
+a) the merkle root
+b) the timestamp
+c) the difficulty target
+d) the nonce
+e) all of the above
+correct: a), b) and d)
+explanation: 
+
+9. What is a coin base transaction?
+a) 
+b)
+c) a special transaction that compensates successful miners for their efforts
+correct: c)
+explanation: 
+
+10. What is the compensatio comprised of that the successful miner gets for solving the computational puzzle?
+a) the transaction fee
+b)
+the block reqard
+correct: a) and c)
+explanation:
+
+11. The more miners in a system...
+a) the more difficult is the computational puzzle
+b) the higher the difficulty target
+c) the faster a puzzle gets solved
+d) the less computational power is needed
+correct: a) and b)
+explanation:
+
+12. What did mining pools form?
+a) 
+b) successfull mining is extremely unlikely for an individual
+c) increase the likelihood of getting a small share of the price rather than none
+correct: b) and c)
+explanation:
+
+13. What is a pool operator?
+a)
+b) someone that manages a mining pool
+c) 
+correct: b)
+explanation:
+
+14. What are NOT tasks of a pool operator?
+a) distribute work among memebrs
+b) collect solutions of workers
+c) decide which block to mine
+d) distribute reward for successful mining
+e) none of the above
+correct: e)
+explanation:
+
+15. True or False? To prevent members of a mining pool from cheating, the pool operator only allows nodes to join that he personally knows.
+a) TRUE
+b) FALSE
+correct: b)
+explanation:
+
+16. True or False? to prevent members of a minign pool from cheating, they have to submit proof of work.
+a) TRUE
+b) FALSE
+correct: a)
+explanation:
+
+17. How does a member of a mining pool proof that we does not cheat?
+a) he must solve the computational puzzle
+b) he pays the pool operator a small fee
+c) he show proof-of-work
+d) he submits solutions to the puzzle at a lower difficulty share (ℓ' < ℓ)
+correct: d)
+explanation:
+
+18. How does a member of a mining pool make sure the pool operator shares the reward?
+a) he can withold the solution to the puzzle
+b) he can only detect the fraud, not prevent it
+c) he can threaten to sabotage the mining efforts
+correct: b)
+explanation:
+
+19. What is a share chain?
+a) a chain of solutions to the computational puzzle at lower difficulty target
+b)
+c)
+correct: a)
+explanation: 
+
+20. What is a P2Pool?
+a)
+b)
+c)
+correct: 
+explanation: 
+
+21. What is the security goal of a digital signature?
+a) Anonymity
+b) Pseudonimity
+c) Authenticity
+d) Confidentiality
+e) Non-Repudiation
+f) Integrity
+correct: c), e) and f)
+explanation:
+
+22. What are components of a digital signature?
+a) the Key Space K
+b) the Version v
+c) the message Space m
+d) the Signature Space s
+correct: a) and c) and d)
+explanation:
+
+23. what are the agorithms of a digital signature?
+a) Key generation
+b)
+c) Siganture algorithm
+d) Verification algorithm
+e)
+correct: a), c) and d)
+explanation:
+
+24. What does correctness of a digital signature mean?:
+a) for each message m ∈ M and each keypair (pk,sk) ∈ K it holds that: Ver(pk, m, Sig(sk,m)) = true
+b) for each message m ∈ M and each keypair (pk,sk) ∈ K it holds that: Ver(pk, Sig(sk,m)) = true
+c) for each message m ∈ M and each keypair (pk,sk) ∈ K it holds that: Ver(sk, m, Sig(pk,m)) = true
+d) for each message m ∈ M and each keypair (pk,sk) ∈ K it holds that: Ver(pk, m, Sig(sk)) = true
+correct: a)
+explanation: 
+ 
