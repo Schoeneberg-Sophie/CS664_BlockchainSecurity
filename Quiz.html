@@ -398,34 +398,24 @@
         // DOM references
         const placeholderScreen =
             document.getElementById("placeholder-screen");
-
         const quizScreen =
             document.getElementById("quiz");
-
         const progressElement =
             document.getElementById("progress");
-
         const questionElement =
             document.getElementById("question");
-
         const imageElement =
             document.getElementById("question-image");
-
         const hintElement =
             document.getElementById("hint");
-
         const optionsElement =
             document.getElementById("options");
-
         const checkButton =
             document.getElementById("check-btn");
-
         const nextButton =
             document.getElementById("next-btn");
-
         const feedbackElement =
             document.getElementById("feedback");
-
         const resultElement =
             document.getElementById("result");
 
@@ -486,7 +476,6 @@
 
             for (let i = sessionQuestions.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-
                 [
                     sessionQuestions[i],
                     sessionQuestions[j]
@@ -502,11 +491,9 @@
             remainingQuestions = sessionQuestions.map(
                 (_, index) => index
             );
-
             questionWeights = new Array(
                 targetQuestionCount
             ).fill(1);
-
             activeQuestionPointer = -1;
             score = 0;
             totalAnswered = 0;
@@ -540,17 +527,13 @@
                 (sum, index) => sum + questionWeights[index],
                 0
             );
-
             let randomNum = Math.random() * totalWeight;
-
             for (const index of remainingQuestions) {
                 randomNum -= questionWeights[index];
-
                 if (randomNum < 0) {
                     return index;
                 }
             }
-
             return remainingQuestions[
                 remainingQuestions.length - 1
             ];
@@ -568,20 +551,15 @@
 
             answered = false;
             selectedKeys = new Set();
-
             progressElement.textContent =
                 `Question ${totalAnswered + 1} of ${targetQuestionCount}`;
-
             questionElement.textContent = q.question;
             optionsElement.replaceChildren();
-
             feedbackElement.style.display = "none";
             feedbackElement.className = "";
-
             nextButton.style.display = "none";
             checkButton.style.display = "none";
             checkButton.disabled = true;
-
             hintElement.textContent = "";
 
             // Optional question image
@@ -602,8 +580,7 @@
                 input.placeholder = "Type your answer...";
                 input.autocomplete = "off";
                 input.setAttribute("aria-label", "Your answer");
-
-                input.addEventListener("input", () => {
+                input.addEvntListener("input", () => {
                     checkButton.disabled =
                         input.value.trim() === "";
                 });
@@ -635,10 +612,19 @@
             }
 
             // Single-choice and multiple-choice options
-            Object.entries(q.options).forEach(([key, text]) => {
+            Object.entries(q.options).forEach(([index, option]) => {
                 const button = document.createElement("button");
 
                 button.type = "button";
+                
+                // Support both object options and string options
+                const key = typeof option === "object" && option !== null
+                    ? option.id
+                    : index;
+                const text = typeof option === "object" && option !== null
+                    ? option.text
+                    : option;
+
                 button.textContent = text;
                 button.dataset.key = key;
 
@@ -672,18 +658,14 @@
             if (answered) {
                 return;
             }
-
             const q = sessionQuestions[activeQuestionPointer];
-
             if (q.type === "single") {
                 submitAnswer([key]);
                 return;
             }
-
             if (q.type !== "multiple") {
                 return;
             }
-
             if (selectedKeys.has(key)) {
                 selectedKeys.delete(key);
                 button.classList.remove("selected");
@@ -691,7 +673,6 @@
                 selectedKeys.add(key);
                 button.classList.add("selected");
             }
-
             checkButton.disabled = selectedKeys.size === 0;
         }
 
@@ -765,15 +746,11 @@
             }
 
             const q = sessionQuestions[activeQuestionPointer];
-
             answered = true;
             totalAnswered++;
-
             const isCorrect = checkAnswer(q, given);
-
             if (isCorrect) {
                 score++;
-
                 questionWeights[activeQuestionPointer] = Math.max(
                     1,
                     questionWeights[activeQuestionPointer] - 0.5
@@ -864,7 +841,6 @@
                     document.createTextNode(q.explanation)
                 );
             }
-
             feedbackElement.className = isCorrect ? "ok" : "bad";
             feedbackElement.style.display = "block";
         }
@@ -878,22 +854,18 @@
             }
 
             const nextIndex = getWeightedRandomIndex();
-
             if (nextIndex === -1) {
                 showResult();
                 return;
             }
-
             activeQuestionPointer = nextIndex;
 
             // Remove the selected index so it cannot repeat
             remainingQuestions = remainingQuestions.filter(
                 index => index !== nextIndex
             );
-
             loadQuestion();
         }
-
 
         // Display the final score
         function showResult() {
