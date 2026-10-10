@@ -4,180 +4,587 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CS664 Blockchain Security Quiz</title>
-    <style>
-        body { font-family: Arial, sans-serif; background-color: #f4f4f9; color: #333; margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; box-sizing: border-box; }
-        .app-container { display: flex; width: 100%; max-width: 850px; background: #fff; border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); overflow: hidden; min-height: 500px; }
-        
-        /* Sidebar Styles */
-        .sidebar { width: 250px; background: #f8fafc; border-right: 1px solid #e2e8f0; padding: 20px; box-sizing: border-box; }
-        .sidebar h2 { font-size: 18px; color: #f7931a; margin-top: 0; margin-bottom: 15px; text-align: center; }
-        .lecture-list { display: flex; flex-direction: column; gap: 10px; }
-        .lecture-btn { width: 100%; padding: 10px 12px; background-color: #e2e8f0; border: 2px solid transparent; border-radius: 5px; cursor: pointer; font-size: 14px; text-align: left; transition: 0.2s; font-weight: bold; }
-        .lecture-btn:hover { background-color: #cbd5e1; }
-        .lecture-btn.active { background-color: #fde68a; border-color: #f7931a; color: #78350f; }
 
-        /* Main Content Styles */
-        .content { flex: 1; padding: 30px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: center; }
-        h1 { color: #f7931a; margin-top: 0; font-size: 24px; text-align: center; margin-bottom: 20px; }
-        
-        #placeholder-screen { text-align: center; color: #64748b; font-size: 16px; }
-        
-        #progress { font-size: 14px; color: #64748b; margin-bottom: 8px; }
-        .question-container { margin-bottom: 20px; font-size: 18px; }
-        #question-image { display: none; max-width: 100%; margin: 0 0 20px; border: 1px solid #e2e8f0; border-radius: 5px; }
-        .hint { font-size: 14px; color: #64748b; margin: -10px 0 12px; }
-        .options button { display: block; width: 100%; padding: 12px; margin: 8px 0; background-color: #e2e8f0; border: 2px solid transparent; border-radius: 5px; cursor: pointer; font-size: 16px; text-align: left; transition: 0.2s; }
-        .options button:hover:not(:disabled) { background-color: #cbd5e1; }
-        .options button:disabled { cursor: default; }
-        .options button.selected { background-color: #fde68a; border-color: #f7931a; }
-        .options button.correct { background-color: #4ade80; color: white; border-color: transparent; }
-        .options button.wrong { background-color: #f87171; color: white; border-color: transparent; }
-        .options button.missed { background-color: #dcfce7; border: 2px dashed #22c55e; color: #166534; }
-        #text-answer { width: 100%; box-sizing: border-box; padding: 12px; font-size: 16px; border: 2px solid #cbd5e1; border-radius: 5px; }
-        #text-answer.correct { border-color: #4ade80; background-color: #f0fdf4; }
-        #text-answer.wrong { border-color: #f87171; background-color: #fef2f2; }
-        .action-btn { display: block; width: 100%; padding: 12px; background-color: #f7931a; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; margin-top: 15px; }
-        .action-btn:hover:not(:disabled) { background-color: #e08214; }
-        .action-btn:disabled { background-color: #cbd5e1; cursor: default; }
-        #feedback { display: none; margin-top: 15px; padding: 12px; border-radius: 5px; font-size: 15px; line-height: 1.4; }
-        #feedback.ok { background-color: #f0fdf4; border-left: 4px solid #4ade80; }
-        #feedback.bad { background-color: #fef2f2; border-left: 4px solid #f87171; }
-        #result { text-align: center; font-size: 22px; font-weight: bold; margin-top: 20px; line-height: 1.5; color: #333; }
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .app-container {
+            display: flex;
+            width: 100%;
+            max-width: 850px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            min-height: 500px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            background: #f8fafc;
+            border-right: 1px solid #e2e8f0;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 18px;
+            color: #f7931a;
+            margin-top: 0;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .lecture-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .lecture-btn {
+            width: 100%;
+            padding: 10px 12px;
+            background-color: #e2e8f0;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            text-align: left;
+            transition: 0.2s;
+            font-weight: bold;
+        }
+
+        .lecture-btn:hover {
+            background-color: #cbd5e1;
+        }
+
+        .lecture-btn.active {
+            background-color: #fde68a;
+            border-color: #f7931a;
+            color: #78350f;
+        }
+
+        /* Main content */
+        .content {
+            flex: 1;
+            min-width: 0;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        h1 {
+            color: #f7931a;
+            margin-top: 0;
+            font-size: 24px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        #placeholder-screen {
+            text-align: center;
+            color: #64748b;
+            font-size: 16px;
+        }
+
+        #progress {
+            font-size: 14px;
+            color: #64748b;
+            margin-bottom: 8px;
+        }
+
+        .question-container {
+            margin-bottom: 20px;
+            font-size: 18px;
+            overflow-wrap: anywhere;
+        }
+
+        #question-image {
+            display: none;
+            max-width: 100%;
+            height: auto;
+            margin: 0 0 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+
+        .hint {
+            font-size: 14px;
+            color: #64748b;
+            margin: -10px 0 12px;
+        }
+
+        .options button {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background-color: #e2e8f0;
+            border: 2px solid transparent;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            text-align: left;
+            overflow-wrap: anywhere;
+            transition: 0.2s;
+        }
+
+        .options button:hover:not(:disabled) {
+            background-color: #cbd5e1;
+        }
+
+        .options button:disabled {
+            cursor: default;
+        }
+
+        .options button.selected {
+            background-color: #fde68a;
+            border-color: #f7931a;
+        }
+
+        .options button.correct {
+            background-color: #4ade80;
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .options button.wrong {
+            background-color: #f87171;
+            color: #fff;
+            border-color: transparent;
+        }
+
+        .options button.missed {
+            background-color: #dcfce7;
+            border: 2px dashed #22c55e;
+            color: #166534;
+        }
+
+        #text-answer {
+            width: 100%;
+            padding: 12px;
+            font-size: 16px;
+            border: 2px solid #cbd5e1;
+            border-radius: 5px;
+        }
+
+        #text-answer.correct {
+            border-color: #4ade80;
+            background-color: #f0fdf4;
+        }
+
+        #text-answer.wrong {
+            border-color: #f87171;
+            background-color: #fef2f2;
+        }
+
+        .action-btn {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            background-color: #f7931a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        .action-btn:hover:not(:disabled) {
+            background-color: #e08214;
+        }
+
+        .action-btn:disabled {
+            background-color: #cbd5e1;
+            cursor: default;
+        }
+
+        #feedback {
+            display: none;
+            margin-top: 15px;
+            padding: 12px;
+            border-radius: 5px;
+            font-size: 15px;
+            line-height: 1.4;
+            overflow-wrap: anywhere;
+        }
+
+        #feedback.ok {
+            background-color: #f0fdf4;
+            border-left: 4px solid #4ade80;
+        }
+
+        #feedback.bad {
+            background-color: #fef2f2;
+            border-left: 4px solid #f87171;
+        }
+
+        #result {
+            text-align: center;
+            font-size: 22px;
+            font-weight: bold;
+            margin-top: 20px;
+            line-height: 1.5;
+            color: #333;
+        }
+
+        #result h2 {
+            font-size: 24px;
+        }
+
+        #result p {
+            overflow-wrap: anywhere;
+        }
+
+        /* Mobile layout */
+        @media (max-width: 600px) {
+            body {
+                padding: 10px;
+                align-items: flex-start;
+            }
+
+            .app-container {
+                flex-direction: column;
+                min-height: auto;
+            }
+
+            .sidebar {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #e2e8f0;
+            }
+
+            .lecture-list {
+                display: grid;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 22px;
+            }
+        }
     </style>
 </head>
-<body>
 
+<body>
     <div class="app-container">
-        <!-- Left Sidebar for Lecture Selection -->
+
+        <!-- Lecture sidebar -->
         <div class="sidebar">
             <h2>Lectures</h2>
+
             <div class="lecture-list">
-                <button class="lecture-btn" onclick="startQuiz('all', this)">All Lectures</button>
-                <button class="lecture-btn" onclick="startQuiz('01', this)">Lecture 1</button>
-                <button class="lecture-btn" onclick="startQiuz('02', this)">Lecture 2</button>
-                <!-- Add more lecture buttons here as needed:
+                <button
+                    type="button"
+                    class="lecture-btn"
+                    onclick="startQuiz('all', this)">
+                    All Lectures
+                </button>
+
+                <button
+                    type="button"
+                    class="lecture-btn"
+                    onclick="startQuiz('01', this)">
+                    Lecture 1
+                </button>
+
+                <button
+                    type="button"
+                    class="lecture-btn"
+                    onclick="startQuiz('02', this)">
+                    Lecture 2
+                </button>
             </div>
         </div>
 
-        <!-- Main Content Area -->
+        <!-- Main content -->
         <div class="content">
             <h1>Blockchain Security Quiz</h1>
 
-            <!-- Initial Placeholder Screen -->
             <div id="placeholder-screen">
-                <p>Select a lecture from the sidebar on the left to start the quiz immediately.</p>
+                <p>
+                    Select a lecture from the sidebar on the left
+                    to start the quiz immediately.
+                </p>
             </div>
 
-            <!-- Active Quiz Screen -->
+            <!-- Quiz screen -->
             <div id="quiz" style="display: none;">
                 <div id="progress"></div>
-                <div class="question-container" id="question">Loading question...</div>
+
+                <div class="question-container" id="question">
+                    Loading question...
+                </div>
+
                 <img id="question-image" alt="Question image">
+
                 <div class="hint" id="hint"></div>
+
                 <div class="options" id="options"></div>
-                <button class="action-btn" id="check-btn" style="display:none;" onclick="submitCurrent()">Check answer</button>
-                <div id="feedback"></div>
-                <button class="action-btn" id="next-btn" style="display:none;" onclick="nextQuestion()">Next Question</button>
+
+                <button
+                    type="button"
+                    class="action-btn"
+                    id="check-btn"
+                    style="display: none;"
+                    onclick="submitCurrent()">
+                    Check answer
+                </button>
+
+                <div id="feedback" aria-live="polite"></div>
+
+                <button
+                    type="button"
+                    class="action-btn"
+                    id="next-btn"
+                    style="display: none;"
+                    onclick="nextQuestion()">
+                    Next Question
+                </button>
             </div>
-            
-            <div id="result"></div>
+
+            <div id="result" aria-live="polite"></div>
         </div>
     </div>
 
-    <!-- Script placeholders for different lectures -->
+    <!-- Load lecture question data before the quiz engine -->
     <script src="questions/quizData_01.js"></script>
-    <!-- <script src="questions/quizData_02.js"></script> -->
     <script src="questions/quizData_02.js"></script>
+
     <script>
+        "use strict";
+
+        // Lecture data
         const availableLectures = {
-            "01": typeof quizData_01 !== 'undefined' ? quizData_01 : [],
-            "02": typeof quizData_02 !== 'undefined' ? quizData_02 : []
+            "01": typeof quizData_01 !== "undefined"
+                ? quizData_01 : [],
+
+            "02": typeof quizData_02 !== "undefined"
+                ? quizData_02 : []
         };
 
+        // Quiz state
         let sessionQuestions = [];
-        let questionWeights = []; 
-        let currentQuestionIndex = 0;
-        let activeQuestionPointer = 0;
+        let questionWeights = [];
+        let remainingQuestions = [];
+        let activeQuestionPointer = -1;
         let score = 0;
         let totalAnswered = 0;
-        let targetQuestionCount = 10;
+        let targetQuestionCount = 0;
         let answered = false;
         let selectedKeys = new Set();
 
-        const placeholderScreen = document.getElementById("placeholder-screen");
-        const quizScreen = document.getElementById("quiz");
-        const progressElement = document.getElementById("progress");
-        const questionElement = document.getElementById("question");
-        const imageElement = document.getElementById("question-image");
-        const hintElement = document.getElementById("hint");
-        const optionsElement = document.getElementById("options");
-        const checkButton = document.getElementById("check-btn");
-        const nextButton = document.getElementById("next-btn");
-        const feedbackElement = document.getElementById("feedback");
-        const resultElement = document.getElementById("result");
+        // DOM references
+        const placeholderScreen =
+            document.getElementById("placeholder-screen");
 
+        const quizScreen =
+            document.getElementById("quiz");
+
+        const progressElement =
+            document.getElementById("progress");
+
+        const questionElement =
+            document.getElementById("question");
+
+        const imageElement =
+            document.getElementById("question-image");
+
+        const hintElement =
+            document.getElementById("hint");
+
+        const optionsElement =
+            document.getElementById("options");
+
+        const checkButton =
+            document.getElementById("check-btn");
+
+        const nextButton =
+            document.getElementById("next-btn");
+
+        const feedbackElement =
+            document.getElementById("feedback");
+
+        const resultElement =
+            document.getElementById("result");
+
+
+        // Start or restart a quiz
         function startQuiz(selectedLecture, btnElement) {
-            // Update active state on sidebar buttons
-            document.querySelectorAll('.lecture-btn').forEach(b => b.classList.remove('active'));
-            if (btnElement) btnElement.classList.add('active');
-
             let pool = [];
+
             if (selectedLecture === "all") {
-                Object.keys(availableLectures).forEach(key => {
-                    if (availableLectures[key]) pool = pool.concat(availableLectures[key]);
+                Object.values(availableLectures).forEach(questions => {
+                    if (Array.isArray(questions)) {
+                        pool.push(...questions);
+                    }
                 });
-                if (pool.length === 0 && typeof quizData !== 'undefined') pool = quizData;
+
+                // Optional fallback for a legacy combined data file
+                if (
+                    pool.length === 0 &&
+                    typeof quizData !== "undefined" &&
+                    Array.isArray(quizData)
+                ) {
+                    pool = [...quizData];
+                }
             } else {
                 pool = availableLectures[selectedLecture] || [];
             }
 
-            if (pool.length === 0) {
-                alert("No questions found for the selected lecture!");
+            if (!Array.isArray(pool) || pool.length === 0) {
+                alert(
+                    "No questions found for the selected lecture. " +
+                    "Check that the question data file exists and " +
+                    "contains questions."
+                );
                 return;
             }
 
-            // Use all questions in the pool since question count option was removed
-            const shuffledPool = [...pool].sort(() => Math.random() - 0.5);
-            sessionQuestions = shuffledPool;
-            targetQuestionCount = sessionQuestions.length;
-            
-            questionWeights = new Array(sessionQuestions.length).fill(1);
+            // Validate the basic question structure
+            pool = pool.filter(q =>
+                q &&
+                typeof q.question === "string" &&
+                (
+                    q.type === "text" ||
+                    (
+                        ["single", "multiple"].includes(q.type) &&
+                        q.options &&
+                        typeof q.options === "object"
+                    )
+                )
+            );
 
+            if (pool.length === 0) {
+                alert("No valid questions were found in this lecture.");
+                return;
+            }
+
+            // Fisher-Yates shuffle: random order without repeats
+            sessionQuestions = [...pool];
+
+            for (let i = sessionQuestions.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+
+                [
+                    sessionQuestions[i],
+                    sessionQuestions[j]
+                ] = [
+                    sessionQuestions[j],
+                    sessionQuestions[i]
+                ];
+            }
+
+            targetQuestionCount = sessionQuestions.length;
+
+            // Track remaining question indices
+            remainingQuestions = sessionQuestions.map(
+                (_, index) => index
+            );
+
+            questionWeights = new Array(
+                targetQuestionCount
+            ).fill(1);
+
+            activeQuestionPointer = -1;
             score = 0;
             totalAnswered = 0;
-            currentQuestionIndex = getWeightedRandomIndex();
-
-            placeholderScreen.style.display = "none";
-            resultElement.innerHTML = "";
-            quizScreen.style.display = "block";
-            loadQuestion();
-        }
-
-        function getWeightedRandomIndex() {
-            const totalWeight = questionWeights.reduce((sum, w) => sum + w, 0);
-            let randomNum = Math.random() * totalWeight;
-            
-            for (let i = 0; i < questionWeights.length; i++) {
-                if (randomNum < questionWeights[i]) return i;
-                randomNum -= questionWeights[i];
-            }
-            return 0;
-        }
-
-        function loadQuestion() {
-            const q = sessionQuestions[activeQuestionPointer];
             answered = false;
             selectedKeys = new Set();
 
-            progressElement.textContent = `Question ${totalAnswered + 1} of ${targetQuestionCount}`;
+            // Update active lecture button
+            document.querySelectorAll(".lecture-btn").forEach(button => {
+                button.classList.remove("active");
+            });
+
+            if (btnElement) {
+                btnElement.classList.add("active");
+            }
+
+            placeholderScreen.style.display = "none";
+            resultElement.replaceChildren();
+            quizScreen.style.display = "block";
+
+            nextQuestion();
+        }
+
+
+        // Weighted selection from unanswered questions only
+        function getWeightedRandomIndex() {
+            if (remainingQuestions.length === 0) {
+                return -1;
+            }
+
+            const totalWeight = remainingQuestions.reduce(
+                (sum, index) => sum + questionWeights[index],
+                0
+            );
+
+            let randomNum = Math.random() * totalWeight;
+
+            for (const index of remainingQuestions) {
+                randomNum -= questionWeights[index];
+
+                if (randomNum < 0) {
+                    return index;
+                }
+            }
+
+            return remainingQuestions[
+                remainingQuestions.length - 1
+            ];
+        }
+
+
+        // Display the current question
+        function loadQuestion() {
+            const q = sessionQuestions[activeQuestionPointer];
+
+            if (!q) {
+                showResult();
+                return;
+            }
+
+            answered = false;
+            selectedKeys = new Set();
+
+            progressElement.textContent =
+                `Question ${totalAnswered + 1} of ${targetQuestionCount}`;
+
             questionElement.textContent = q.question;
-            optionsElement.innerHTML = "";
+            optionsElement.replaceChildren();
+
             feedbackElement.style.display = "none";
             feedbackElement.className = "";
+
             nextButton.style.display = "none";
             checkButton.style.display = "none";
+            checkButton.disabled = true;
+
             hintElement.textContent = "";
 
+            // Optional question image
             if (q.image) {
                 imageElement.src = q.image;
                 imageElement.style.display = "block";
@@ -186,44 +593,94 @@
                 imageElement.style.display = "none";
             }
 
+            // Text-answer question
             if (q.type === "text") {
                 const input = document.createElement("input");
+
                 input.type = "text";
                 input.id = "text-answer";
                 input.placeholder = "Type your answer...";
                 input.autocomplete = "off";
-                input.addEventListener("input", () => { checkButton.disabled = input.value.trim() === ""; });
-                input.addEventListener("keydown", (e) => {
-                    if (e.key === "Enter" && !answered && input.value.trim() !== "") submitCurrent();
+                input.setAttribute("aria-label", "Your answer");
+
+                input.addEventListener("input", () => {
+                    checkButton.disabled =
+                        input.value.trim() === "";
                 });
+
+                input.addEventListener("keydown", event => {
+                    if (
+                        event.key === "Enter" &&
+                        !answered &&
+                        input.value.trim() !== ""
+                    ) {
+                        submitCurrent();
+                    }
+                });
+
                 optionsElement.appendChild(input);
+
                 checkButton.style.display = "block";
                 checkButton.disabled = true;
+
                 input.focus();
                 return;
             }
 
+            // Multiple-choice question
             if (q.type === "multiple") {
                 hintElement.textContent = "Select all that apply.";
                 checkButton.style.display = "block";
                 checkButton.disabled = true;
             }
 
+            // Single-choice and multiple-choice options
             Object.entries(q.options).forEach(([key, text]) => {
                 const button = document.createElement("button");
+
+                button.type = "button";
                 button.textContent = text;
                 button.dataset.key = key;
-                button.onclick = () => selectOption(key, button);
+
+                button.addEventListener("click", () => {
+                    selectOption(key, button);
+                });
+
                 optionsElement.appendChild(button);
             });
         }
 
+
+        // Normalize correct answers into an array of strings
+        function getCorrectAnswers(q) {
+            const correct = q.correct;
+
+            if (Array.isArray(correct)) {
+                return correct.map(String);
+            }
+
+            if (correct !== undefined && correct !== null) {
+                return [String(correct)];
+            }
+
+            return [];
+        }
+
+
+        // Select an option
         function selectOption(key, button) {
-            if (answered) return;
+            if (answered) {
+                return;
+            }
+
             const q = sessionQuestions[activeQuestionPointer];
 
             if (q.type === "single") {
                 submitAnswer([key]);
+                return;
+            }
+
+            if (q.type !== "multiple") {
                 return;
             }
 
@@ -234,87 +691,234 @@
                 selectedKeys.add(key);
                 button.classList.add("selected");
             }
+
             checkButton.disabled = selectedKeys.size === 0;
         }
 
+
+        // Submit the current answer
         function submitCurrent() {
-            if (answered) return;
+            if (answered) {
+                return;
+            }
+
             const q = sessionQuestions[activeQuestionPointer];
+
             if (q.type === "text") {
-                submitAnswer(document.getElementById("text-answer").value);
+                const input = document.getElementById("text-answer");
+
+                if (!input || input.value.trim() === "") {
+                    return;
+                }
+
+                submitAnswer(input.value.trim());
             } else {
+                if (selectedKeys.size === 0) {
+                    return;
+                }
+
                 submitAnswer([...selectedKeys]);
             }
         }
 
+
+        // Check the submitted answer
+        function checkAnswer(q, given) {
+            if (q.type === "text") {
+                const normalize = value =>
+                    String(value)
+                        .trim()
+                        .toLowerCase()
+                        .replace(/\s+/g, " ");
+
+                const answers = Array.isArray(q.answers)
+                    ? q.answers
+                    : q.answers != null
+                        ? [q.answers]
+                        : [];
+
+                return answers.some(answer =>
+                    normalize(answer) === normalize(given)
+                );
+            }
+
+            const correct = getCorrectAnswers(q);
+            const selected = Array.isArray(given)
+                ? given.map(String)
+                : [String(given)];
+
+            const correctSet = new Set(correct);
+            const selectedSet = new Set(selected);
+
+            return (
+                correctSet.size > 0 &&
+                correctSet.size === selectedSet.size &&
+                [...correctSet].every(key => selectedSet.has(key))
+            );
+        }
+
+
+        // Grade and display feedback
         function submitAnswer(given) {
+            if (answered) {
+                return;
+            }
+
             const q = sessionQuestions[activeQuestionPointer];
+
             answered = true;
             totalAnswered++;
+
             const isCorrect = checkAnswer(q, given);
-            
+
             if (isCorrect) {
                 score++;
-                questionWeights[activeQuestionPointer] = Math.max(1, questionWeights[activeQuestionPointer] - 0.5);
+
+                questionWeights[activeQuestionPointer] = Math.max(
+                    1,
+                    questionWeights[activeQuestionPointer] - 0.5
+                );
             } else {
                 questionWeights[activeQuestionPointer] += 2;
             }
 
+            // Display answer results
             if (q.type === "text") {
                 const input = document.getElementById("text-answer");
-                input.disabled = true;
-                input.classList.add(isCorrect ? "correct" : "wrong");
-            } else {
-                const chosen = new Set(given);
-                for (const btn of optionsElement.getElementsByTagName("button")) {
-                    const key = btn.dataset.key;
-                    const isRight = q.correct.includes(key);
-                    btn.disabled = true;
-                    btn.classList.remove("selected");
-                    if (chosen.has(key)) {
-                        btn.classList.add(isRight ? "correct" : "wrong");
-                    } else if (isRight) {
-                        btn.classList.add(q.type === "multiple" ? "missed" : "correct");
-                    }
+
+                if (input) {
+                    input.disabled = true;
+                    input.classList.add(
+                        isCorrect ? "correct" : "wrong"
+                    );
                 }
+            } else {
+                const chosen = new Set(
+                    Array.isArray(given) ? given.map(String) : [String(given)]
+                );
+
+                const correctAnswers = getCorrectAnswers(q);
+
+                optionsElement.querySelectorAll("button").forEach(button => {
+                    const key = button.dataset.key;
+                    const isRight = correctAnswers.includes(key);
+
+                    button.disabled = true;
+                    button.classList.remove("selected");
+
+                    if (chosen.has(key)) {
+                        button.classList.add(
+                            isRight ? "correct" : "wrong"
+                        );
+                    } else if (isRight) {
+                        button.classList.add(
+                            q.type === "multiple" ? "missed" : "correct"
+                        );
+                    }
+                });
             }
 
             checkButton.style.display = "none";
+
             showFeedback(q, isCorrect);
 
-            nextButton.textContent = totalAnswered < targetQuestionCount ? "Next Question" : "Show Result";
+            nextButton.textContent =
+                totalAnswered < targetQuestionCount
+                    ? "Next Question"
+                    : "Show Result";
+
             nextButton.style.display = "block";
         }
 
+
+        // Show answer feedback safely
         function showFeedback(q, isCorrect) {
-            feedbackElement.innerHTML = "";
+            feedbackElement.replaceChildren();
+
             const title = document.createElement("strong");
-            title.textContent = isCorrect ? "Correct! " : "Not quite. ";
+
+            title.textContent = isCorrect
+                ? "Correct! "
+                : "Not quite. ";
+
             feedbackElement.appendChild(title);
 
             if (!isCorrect && q.type === "text") {
-                feedbackElement.appendChild(document.createTextNode(`Accepted answer: ${q.answers[0]}. `));
+                const answers = Array.isArray(q.answers)
+                    ? q.answers
+                    : q.answers != null
+                        ? [q.answers]
+                        : [];
+
+                if (answers.length > 0) {
+                    feedbackElement.appendChild(
+                        document.createTextNode(
+                            `Accepted answer: ${answers.join(" / ")}. `
+                        )
+                    );
+                }
             }
+
             if (q.explanation) {
-                feedbackElement.appendChild(document.createTextNode(q.explanation));
+                feedbackElement.appendChild(
+                    document.createTextNode(q.explanation)
+                );
             }
+
             feedbackElement.className = isCorrect ? "ok" : "bad";
             feedbackElement.style.display = "block";
         }
 
+
+        // Move to the next unanswered question
         function nextQuestion() {
-            if (totalAnswered < targetQuestionCount) {
-                activeQuestionPointer = getWeightedRandomIndex();
-                loadQuestion();
-            } else {
+            if (totalAnswered >= targetQuestionCount) {
                 showResult();
+                return;
             }
+
+            const nextIndex = getWeightedRandomIndex();
+
+            if (nextIndex === -1) {
+                showResult();
+                return;
+            }
+
+            activeQuestionPointer = nextIndex;
+
+            // Remove the selected index so it cannot repeat
+            remainingQuestions = remainingQuestions.filter(
+                index => index !== nextIndex
+            );
+
+            loadQuestion();
         }
 
+
+        // Display the final score
         function showResult() {
             quizScreen.style.display = "none";
-            const percent = Math.round((score / totalAnswered) * 100);
-            resultElement.innerHTML = `Quiz Completed! <br><br> Your Score: ${score} out of ${totalAnswered} (${percent}%)<br><br><span style="font-size: 16px; font-weight: normal; color: #64748b;">You can now close this tab.</span>`;
+            resultElement.replaceChildren();
+
+            const percent = totalAnswered > 0
+                ? Math.round((score / totalAnswered) * 100)
+                : 0;
+
+            const heading = document.createElement("h2");
+            heading.textContent = "Quiz Completed!";
+
+            const scoreText = document.createElement("p");
+            scoreText.textContent =
+                `Your Score: ${score} out of ${totalAnswered} (${percent}%)`;
+
+            const note = document.createElement("p");
+
+            note.style.fontSize = "16px";
+            note.style.fontWeight = "normal";
+            note.style.color = "#64748b";
+            note.textContent = "Select a lecture to try again.";
+
+            resultElement.append(heading, scoreText, note);
         }
     </script>
 </body>
