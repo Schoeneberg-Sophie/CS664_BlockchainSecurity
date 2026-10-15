@@ -1,0 +1,83 @@
+quiz questions for lecture 3:
+
+1. How is a bitcoin Address formatted?
+a) | Type | String |
+b) | String | Type |
+c) | Type | String | Checksum |
+correct: a)
+explanation:
+
+2. A P2PKH is a type of Bitcoin Address that start with:
+a) 3
+b) 2
+c) A
+d) 1
+correct: d)
+explanation:
+
+3. when an transaction is published it is broadcasted to...
+a) the recipient
+b) the bitcoin network
+c) the P2P network
+d) all of the above
+correct: d)
+explanation: The Bitcoin Network and the P2P (Peer-to-Peer) Network are the exact same thing.
+Bitcoin doesn't have a central server; it is a global P2P network made up of thousands of computers (nodes) talking to each other. 
+When you broadcast a transaction, you are broadcasting it to this P2P network. The Recipient (or their wallet software/node) is also 
+part of that P2P network, so they will see the transaction pop up in their mempool as well.
+
+4. How does the recipient verify the authenticity of the transaction?
+a) with his own secret key
+b) with the digital signature
+c) with the public key of the sender
+d) by solving the computational puzzle
+correct: b) c)
+explanation: The Digital Signature proves that the owner of the funds actually authorised this 
+specific transaction and that the message hasn't been tampered with. The Sender's Public Key is used to mathematically verify that signature. 
+The recipient (or the network) runs the public key, the signature, and the transaction data through an ECDSA verification algorithm. 
+If it checks out, it proves the transaction genuinely came from the holder of the matching private key.
+
+5.  The signature of the transaction is created using:
+a) the secret key of the sender
+b) the secret key of the recipient
+c) a hash function
+correct: a)
+explanation: Only the person who owns the funds holds that secret (private) key, which is why it is the only thing capable of
+generating a valid digital signature to authorise spending those funds. Anyone else trying to sign it would fail the cryptographic math test
+
+6. How is the bitcoin address of the sender linked to the transaction?
+a) by doubly hashing the public key
+b) by adding the string to the transaction
+c) by hashing the public key ones
+d) by including it in the signature via the secret key
+correct: a)
+explanation: 
+
+7. What is base58?
+a) an encoding system avoiding confusing numbers
+b) a type of bitcoin address
+c) the language of the bitcoin software
+d) a hash function used to calculate the checksum
+correct: a)
+explanation: 
+
+8. Which component is not part of a bitcoin address?:
+a) the UTXOs
+b) the type
+c) the doubly hashed public key
+d) the public key 
+correct: a), d)
+explanation: 
+
+9. Where is the bitcoin address included in transaction?
+a) in the locking script
+b) in the TxOuts
+c) none 
+d) in the TxINs
+e) in the unlocking script
+correct: c)
+explanation:When someone sends Bitcoin to your address, 
+the transaction's output contains a locking script (scriptPubKey). Inside that script, 
+the address is converted into its underlying component - the 20-byte public key hash. However, the bitcoin 
+address in base58 is never saved in transactions. 
+
