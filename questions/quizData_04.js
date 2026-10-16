@@ -2,7 +2,7 @@
 // type: "single" | "multiple" | "truefalse"
 // correct: array of option ids (more than one entry = multiple correct answers)
 
-const quizData_03 = [
+const quizData_04 = [
   {
     id: 1,
     type: "single",
@@ -641,5 +641,5 @@ const quizData_03 = [
 ];
 
 if (typeof module !== "undefined" && module.exports) {
-  module.exports = quizData_03;
+  module.exports = quizData_04;
 }
