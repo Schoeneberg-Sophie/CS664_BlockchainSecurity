@@ -1,0 +1,30 @@
+quiz questions for lecture 4:
+
+1. What is selfish mining?
+a)
+b) when miners temporarily keep blocks to themselves instead of publishing
+c) when the block reward is not shared with other miners
+d)
+correct: b)
+explanation: 
+
+2. when is selfish mining feasible?
+a) only when the selfish miners control more than 50% of the hash power
+b) even when the honest nodes hold the majority (more than 50%) of the hash power
+c) only when all miners agree to withhold blocks
+d) only when the block reward is zero
+correct: b) 
+explanation:
+
+3. What is the goal of selfish mining?
+a) to reduce the transaction fees paid by users
+b)
+c) let honest miners waste computational power
+d) to earn a larger share of the block rewards than the pool's share of the hash power
+correct: c) d)
+explanation: Bitcoin adjusts mining 
+difficulty so that blocks arrive every ~10 minutes. Orphaned honest blocks slow down
+the main chain, so difficulty eventually drops, and then the selfish pool earns more per unit
+of time too.
+
+4. 
