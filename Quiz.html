@@ -322,6 +322,13 @@
                     onclick="startQuiz('03', this)">
                     Lecture 3
                 </button>
+
+                <button
+                    type="button"
+                    class="lecture-btn"
+                    onclick="startQuiz('04', this)">
+                    Lecture 4
+                </button>
             </div>
         </div>
 
@@ -379,6 +386,7 @@
     <script src="questions/quizData_01.js"></script>
     <script src="questions/quizData_02.js"></script>
     <script src="questions/quizData_03.js"></script>
+    <script src="questions/quizData_04.js"></script>
 
     <script>
         "use strict";
@@ -392,7 +400,10 @@
                 ? quizData_02 : [],
 
             "03": typeof quizData_03 !== "undefined"
-                ? quizData_03 : []
+                ? quizData_03 : [],
+
+            "04": typeof quizData_04 !== "undefined"
+                ? quizData_04 : []
         };
 
         // Quiz state
