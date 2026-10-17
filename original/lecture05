@@ -1,0 +1,51 @@
+
+    question: "Although privacy are low, how can users still be identified?",
+    options: 
+a", text: "Via their public keys" 
+b", text: "Via their balances and their UTXO" 
+c", text: "Via their bitcoin addresses" 
+    correct: ["b"],
+    explanation: Even though Bitcoin addresses are pseudonymous, blockchain analysis tools can trace transactions by examining how Unspent Transaction Outputs (UTXOs) are spent and combinedas inputs. When multiple UTXOs are spent in a single transaction, it strongly implies they belong to the same wallet/user. By analyzing these transaction graphs, change outputs, and balances, entities can deanonymize users."
+
+    question: "How can the blockchain be analysed?",
+    options: "a", text: "Using trasnaction graphs },
+b)
+c)
+    correct: ["a"],
+    explanation: 
+
+3. What are some types of addresses identified in mapping bitcoin transactions?
+a)
+b) Muli-Input Addresses
+c)
+d) Shadow Adresses
+correct: b) d)
+explanation:
+
+4. What precondition is necessary for a 51% attack to occur?
+a)
+b)
+c) malicious nodes need to hold at least 51% of the mining power
+d)
+correct: c)
+explanation: 
+
+5. What is the goal of a 51% attack?
+a) to double spend
+b) to control the blockchain
+c) to receive block rewards by mining new blocks
+d) to get a higher block reward relative to the computational power invested
+e) exclude certain addresses from the bitcoin network
+correct: a) b) e)
+explanation: 
+
+6. Why do malicious nodes in a 51% attack still control the blockchain in spite of forks in the blockchain?
+a) they control the majority of the hashing power, thus their fork will be longer
+b) they convince other users to mine on their fork
+c) 
+d)
+correct: a)
+explanation: 
+
+7. 
+
