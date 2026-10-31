@@ -55,6 +55,64 @@ d)
 correct: b) c)
 explanation:
 
+8. What is the 51% attack?
+a)
+b)
+c) a attack where the majority of miners are malicious
+d)
+correct: c)
+explanation:
 
+9. What is true for the 51% attack?
+a) attacker can create a new fork at any time
+b)
+c)
+d) attacker can control the blockchain to their advantage
+correct: a) d)
+explanation:
 
+10. What are some goas of the 51% attack?
+a)
+b) excluding certain addresses
+c) double spending
+d)
+correct: b) c)
+explanation:
 
+11. Whats the difference between 51% attacks and selfish mining?
+a)
+b) selfish mining does not necessitate a majority
+c)
+d)
+correct: 
+
+12. Whats the goal of selfish mining?
+a) let honest miners waste computational power
+b)
+c)
+d)
+correct: a)
+explanation:
+
+13. Whats happens when a selfish miner only has 1 secret block more than the public blockchain?
+a)
+b) he publishes it
+c)
+correct: b)
+explanation:
+
+14. What does the effectiveness of selfish mining depend on?
+a)
+b)
+c) the share of mining power possessed by selfish miners
+d) the fraction of honest miners operating on the selfish branch
+correct: c) d)
+explanation:
+
+15. In selfish mining, the higher the fraction of honest miners operating on the secret branch,...
+a) the share of computational power possessed by selfish miners decreases 
+b)
+c)
+d)
+correct: a)
+explanation:
