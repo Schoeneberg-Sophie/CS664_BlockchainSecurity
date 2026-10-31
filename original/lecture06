@@ -1,0 +1,80 @@
+quizdata for lecture 6: Segwit, Scallability, Confirmation Time
+
+1. Why does the recipient wait some time to confirmt that he actually received the BTC?
+a)
+b)
+c) to make sure no new forks make the transaction invalid.
+d) 
+correct: c
+explanation:
+
+2. the larger the mempool...
+a)
+b) the longer it takes for a single transaction to be included into the blockchain on average
+c)
+d)
+correct: b
+explanation:
+
+3. In theory, what could be done to increase the tps (Transactions per second) in bitcoin?
+a) reduce block generation (BGT) time
+b)
+c) reduce block size
+d)
+correct: a) c)
+explanation:
+
+4. What would be the consequences of reducing the block generation time in bitcoin?
+a) the difficulty target would increase
+b) the difficulty target would decrease
+c) the risk of double spend attacks would decrease if BGT (block generation time) < RT (relay time)
+d) the risk of double spending attacks would increase if BGT (block generation time) < RT (relay time)
+correct: b) d)
+explanation:
+
+5. What would be the consequences of increasing the block size in bitcoin?
+a) the relay time would decrease
+b) the relay time would increase
+c) nodes would take more time downloading new blocks
+d) the difficulty target would increase
+e) the difficulty target would decrease
+correct: b) c)
+explanation:
+
+6. Why was SeWit introduced?
+a)
+b)
+c)
+d) to solve transaction malleability
+correct: d)
+explanation:
+
+7. Segwit is...
+a) backwards compatible
+b) not backwards compatible
+correct: a)
+explanation:
+
+8. What part of the block header is moved outside in Segwit?
+a) the unlocking script
+b) Transaction ID (TxID)
+c) the block number
+d) the timestamp
+e) the locking script
+correct: a
+explanation: In Bitcoin's Segregated Witness (SegWit) upgrade, the signature and 
+script data (known as the "witness data" or the unlocking script / scriptSig) are segregated 
+(moved outside) of the traditional transaction data structure. By removing this data from the 
+base transaction and placing it in a separate witness structure, SegWit fixes transaction 
+malleability and effectively increases block capacity without requiring a hard fork.
+
+9. How can an attacker exploit non-Sewgit compatible transactions?
+a)
+b) the attacker manipulates the transaction such that it remains valid and essentially the same
+while only the TxID is changed, the false transaction is then inluded in the blockchain and the attcker can 
+claim that the original transaction was never included and demand a refund of the BTC, thus getting the same 
+amount of bitcoin twice
+c)
+d)
+correct: b)
+explanation:
