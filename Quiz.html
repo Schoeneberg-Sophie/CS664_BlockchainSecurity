@@ -624,7 +624,7 @@
                 input.placeholder = "Type your answer...";
                 input.autocomplete = "off";
                 input.setAttribute("aria-label", "Your answer");
-                input.addEvntListener("input", () => {
+                input.addEventListener("input", () => {
                     checkButton.disabled =
                         input.value.trim() === "";
                 });
