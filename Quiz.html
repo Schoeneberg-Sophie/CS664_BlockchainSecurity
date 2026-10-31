@@ -403,6 +403,16 @@
     <script src="questions/quizData_04.js"></script>
     <script src="questions/quizData_05.js"></script>
     <script src="questions/quizData_06.js"></script>
+
+    <script>
+window.addEventListener("error", function (e) {
+    if (e.filename) {
+        alert("Script error in " + e.filename + " at line " + e.lineno + ":\n" + e.message);
+    } else if (e.target && e.target.src) {
+        alert("Could not load: " + e.target.src);
+    }
+}, true);
+</script>
     
     <script>
         "use strict";
