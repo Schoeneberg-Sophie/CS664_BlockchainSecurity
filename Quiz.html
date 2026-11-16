@@ -247,6 +247,50 @@
             color: #166534;
         }
 
+        /* Matching Question Styles */
+        .matching-row {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            padding: 12px;
+            margin: 8px 0;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 5px;
+        }
+
+        .matching-item-text {
+            font-size: 15px;
+            font-weight: 500;
+            overflow-wrap: anywhere;
+        }
+
+        .matching-select {
+            width: 100%;
+            padding: 9px 10px;
+            font-size: 15px;
+            border: 2px solid #cbd5e1;
+            border-radius: 5px;
+            background-color: #fff;
+            cursor: pointer;
+        }
+
+        .matching-row.correct {
+            background-color: #f0fdf4;
+            border-color: #4ade80;
+        }
+
+        .matching-row.wrong {
+            background-color: #fef2f2;
+            border-color: #f87171;
+        }
+
+        .matching-answer-note {
+            font-size: 13px;
+            color: #166534;
+            font-weight: bold;
+        }
+
         #text-answer {
             width: 100%;
             padding: 12px;
@@ -463,6 +507,15 @@
         </div>
     </div>
 
+    <!-- Catch script syntax errors in data files -->
+    <script>
+        window.addEventListener("error", function (e) {
+            if (e.filename && e.filename.includes("quizData_")) {
+                alert("Syntax error in " + e.filename + " at line " + e.lineno + ":\n" + e.message);
+            }
+        }, true);
+    </script>
+
     <!-- Load lecture question data before the quiz engine -->
     <script src="questions/quizData_01.js"></script>
     <script src="questions/quizData_02.js"></script>
@@ -482,22 +535,33 @@
     <script>
         "use strict";
 
+        // Normalize either a direct array or an object with a .questions array
+        function extractQuestions(raw) {
+            if (Array.isArray(raw)) {
+                return raw;
+            }
+            if (raw && Array.isArray(raw.questions)) {
+                return raw.questions;
+            }
+            return [];
+        }
+
         // Lecture data
         const availableLectures = {
-            "01": typeof quizData_01 !== "undefined" ? quizData_01 : [],
-            "02": typeof quizData_02 !== "undefined" ? quizData_02 : [],
-            "03": typeof quizData_03 !== "undefined" ? quizData_03 : [],
-            "04": typeof quizData_04 !== "undefined" ? quizData_04 : [],
-            "05": typeof quizData_05 !== "undefined" ? quizData_05 : [],
-            "06": typeof quizData_06 !== "undefined" ? quizData_06 : [],
-            "07": typeof quizData_07 !== "undefined" ? quizData_07 : [],
-            "08": typeof quizData_08 !== "undefined" ? quizData_08 : [],
-            "09": typeof quizData_09 !== "undefined" ? quizData_09 : [],
-            "10": typeof quizData_10 !== "undefined" ? quizData_10 : [],
-            "11": typeof quizData_11 !== "undefined" ? quizData_11 : [],
-            "12": typeof quizData_12 !== "undefined" ? quizData_12 : [],
-            "13": typeof quizData_13 !== "undefined" ? quizData_13 : [],
-            "14": typeof quizData_14 !== "undefined" ? quizData_14 : []
+            "01": extractQuestions(typeof quizData_01 !== "undefined" ? quizData_01 : null),
+            "02": extractQuestions(typeof quizData_02 !== "undefined" ? quizData_02 : null),
+            "03": extractQuestions(typeof quizData_03 !== "undefined" ? quizData_03 : null),
+            "04": extractQuestions(typeof quizData_04 !== "undefined" ? quizData_04 : null),
+            "05": extractQuestions(typeof quizData_05 !== "undefined" ? quizData_05 : null),
+            "06": extractQuestions(typeof quizData_06 !== "undefined" ? quizData_06 : null),
+            "07": extractQuestions(typeof quizData_07 !== "undefined" ? quizData_07 : null),
+            "08": extractQuestions(typeof quizData_08 !== "undefined" ? quizData_08 : null),
+            "09": extractQuestions(typeof quizData_09 !== "undefined" ? quizData_09 : null),
+            "10": extractQuestions(typeof quizData_10 !== "undefined" ? quizData_10 : null),
+            "11": extractQuestions(typeof quizData_11 !== "undefined" ? quizData_11 : null),
+            "12": extractQuestions(typeof quizData_12 !== "undefined" ? quizData_12 : null),
+            "13": extractQuestions(typeof quizData_13 !== "undefined" ? quizData_13 : null),
+            "14": extractQuestions(typeof quizData_14 !== "undefined" ? quizData_14 : null)
         };
 
         function getTopicMeta(lectureId) {
@@ -594,6 +658,11 @@
                 typeof q.question === "string" &&
                 (
                     q.type === "text" ||
+                    (
+                        q.type === "matching" &&
+                        Array.isArray(q.items) &&
+                        Array.isArray(q.targets)
+                    ) ||
                     (
                         ["single", "multiple"].includes(q.type) &&
                         q.options &&
@@ -743,6 +812,49 @@
                 return;
             }
 
+            // Matching question
+            if (q.type === "matching") {
+                hintElement.textContent = "Match each item to its category.";
+                checkButton.style.display = "block";
+                checkButton.disabled = true;
+
+                q.items.forEach(item => {
+                    const row = document.createElement("div");
+                    row.className = "matching-row";
+                    row.dataset.itemId = item.id;
+
+                    const label = document.createElement("div");
+                    label.className = "matching-item-text";
+                    label.textContent = item.text;
+
+                    const select = document.createElement("select");
+                    select.className = "matching-select";
+                    select.dataset.itemId = item.id;
+
+                    const defaultOpt = document.createElement("option");
+                    defaultOpt.value = "";
+                    defaultOpt.textContent = "-- Select a match --";
+                    select.appendChild(defaultOpt);
+
+                    q.targets.forEach(target => {
+                        const opt = document.createElement("option");
+                        opt.value = target.id;
+                        opt.textContent = target.text;
+                        select.appendChild(opt);
+                    });
+
+                    select.addEventListener("change", () => {
+                        const selects = optionsElement.querySelectorAll(".matching-select");
+                        const allSelected = [...selects].every(s => s.value !== "");
+                        checkButton.disabled = !allSelected;
+                    });
+
+                    row.append(label, select);
+                    optionsElement.appendChild(row);
+                });
+                return;
+            }
+
             // Multiple-choice question
             if (q.type === "multiple") {
                 hintElement.textContent = "Select all that apply.";
@@ -829,6 +941,16 @@
                 }
 
                 submitAnswer(input.value.trim());
+            } else if (q.type === "matching") {
+                const selects = optionsElement.querySelectorAll(".matching-select");
+                const pairs = [];
+                for (const s of selects) {
+                    if (!s.value) {
+                        return;
+                    }
+                    pairs.push(`${s.value}-${s.dataset.itemId}`);
+                }
+                submitAnswer(pairs);
             } else {
                 if (selectedKeys.size === 0) {
                     return;
@@ -903,6 +1025,32 @@
                         isCorrect ? "correct" : "wrong"
                     );
                 }
+            } else if (q.type === "matching") {
+                const correctSet = new Set(getCorrectAnswers(q));
+                const targetMap = Object.fromEntries(
+                    q.targets.map(t => [String(t.id), t.text])
+                );
+
+                optionsElement.querySelectorAll(".matching-row").forEach(row => {
+                    const select = row.querySelector(".matching-select");
+                    const itemId = row.dataset.itemId;
+                    const pair = `${select.value}-${itemId}`;
+                    select.disabled = true;
+
+                    if (correctSet.has(pair)) {
+                        row.classList.add("correct");
+                    } else {
+                        row.classList.add("wrong");
+                        const validTargets = [...correctSet]
+                            .filter(p => p.endsWith(`-${itemId}`))
+                            .map(p => targetMap[p.split("-")[0]])
+                            .join(", ");
+                        const note = document.createElement("div");
+                        note.className = "matching-answer-note";
+                        note.textContent = `Correct match: ${validTargets}`;
+                        row.appendChild(note);
+                    }
+                });
             } else {
                 const chosen = new Set(
                     Array.isArray(given) ? given.map(String) : [String(given)]
