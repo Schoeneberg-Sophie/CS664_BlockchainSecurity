@@ -109,5 +109,42 @@ d)
 correct: a)
 explanation:
 
+12. What is not true of elliptic curves?:
+a) the point P can represent any real number
+b)
+c) the discrete logarithm problem is sufficiently hard given any size of the cyclic group
+d)
+correct: a, c
+explanation:
 
+13. User A can select a value k_A ∈{0,…,ℓ−1}, why not k_A ∈ {0,…,ℓ}?
+a)
+b)
+c) the group of size ℓ is a set that starts at 0, so ℓ-1 produces the end of the set, while ℓ gives the first element of the set
+d)
+correct: c)
+explanation:
+  
+14. If k_a = log_G(K_A), then K_A =
+a) (k_A)G
+b)
+c)
+d)
+correct: a)
+explanation:
 
+15. Whats the use of the Diffie-Hellmann protocol?
+a)
+b)
+c) derive a common secret wit other users
+d)
+correct: c)
+explanation:
+
+16. Whats the use of the Schnorr protocol?
+a)
+b)
+c) prove knowledge of secret key k_A without revealing it
+d)
+correct: c)
+explanation:
