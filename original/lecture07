@@ -148,3 +148,66 @@ c) prove knowledge of secret key k_A without revealing it
 d)
 correct: c)
 explanation:
+
+17. In the Diffie-Hellman Protocol, how are secret keys exhcnaged?
+a)
+b)
+c)
+d) because private keys are applied to a generator G to get the public key, sending the public key means 
+mathematically the recipient gets the private key without revealing it
+correct: d
+explanation:
+
+18. What does the Schnorr Protocol show?
+a)
+b) the knowledge of the secret key k_a can be proven without revealing the key
+c)
+d)
+correct: b)
+explanation:
+
+19. How does the non-interactive Schnorr Protocol differ from the interactive one?
+a)
+b)
+c) the prover computes the challenge c by hashing the random number a with a generator G (Hash(aG))
+d) the verifier does not verify if the prover knows the secret
+correct: c)
+explanation:
+
+20. In the Schnorr Protocol, how is the response computed?
+a) r = a + ck
+b)
+c)
+d)
+correct: a)
+explanation:
+
+21. How can the Schnorr protocoll be cheated?
+a)
+b) a user generates their oublic key after seeing the other party's public key
+c) by reusing the same nonce and private key
+d)
+e)  If a developer omits a critical public parameter from the hash transcript (such as the key image I, the public key P, or the ring members),  
+f)
+correct: b
+explanation: If Alice generates her public key P_A after seeing Bob's public key P_B, she can 
+set P_A = x_A G - P_B. The aggregated group key becomes P_A + P_B = x_A G, allowing Alice to 
+unilaterally spend the multisig funds without Bob. Monero prevents this using proofs of 
+possession (each participant must sign a Schnorr proof of knowledge of their own secret key
+before aggregation).
+Nonce reuse: If a wallet ever signs two different transactions (or two branches of a ring) with
+the same nonce \alpha and the same private key x, anyone observing both signatures can solve 
+for the private key directly.
+If a developer omits a critical public parameter from the hash transcript (such as the key image I, the public key P,
+or the ring members), an attacker can work backwards—choosing c and s first, and computing 
+R = sG + cP —to forge a valid proof for a statement they don't actually know the secret key for.
+
+22. In the Schnorr Protocol, what does the verifier do?
+a) he computes R (R = (a + ck)G) and R' (R' = aG + c'K) where c' = Hash(aG), and checks whether R == R'
+b)
+c) he takes the response from the prover ( r = a + ck) and applies a generator point G, so that R = rG. 
+d)
+correct: c, a
+explanation:
+
+23. 
