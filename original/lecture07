@@ -210,4 +210,58 @@ d)
 correct: c, a
 explanation:
 
-23. 
+23. In Monero, what does a Stealth Address do?
+a)
+b)
+c)
+d) obfuscate the recipient
+correct: d)
+explanation:
+
+24. Which step is wrong (Stealth addresses - Monero):
+a) 1. the sender receives the two public key K^v_R and K^s_R
+b) 2. the snder generates a one-time ouput adress by choosing a random scalar r 
+c) 3. in addition to r, he sets up the one-time address K° = Hash(rK^s_R)G + K^v_R
+d) 4. the sender publishes the transaction with K° containing rG
+e) 5. the recipient checks if a transactio belong to him by computing K^(~)° - Hash(k^v_r(r^(~)G))G = K^s_R
+correct: c)
+explanation: correct K° should be Hash(rK^v_R)G + K^s_R
+
+25. How can one cheat in Stealth Adresses?
+a) reusing the same r
+b) 
+c) Janus attack
+d)
+e)
+f) an attacker injects a low-order point to see 
+if a key is modular (divisible to 0) to a certain number
+correct: a, c, f
+explanation:
+
+26. Whats the role of the view key in Monero?
+a)
+b) Decrypt RingCT amounts
+c)
+d)
+e) computes shared secret k^v_r to spot incoming K°
+f) 
+correct: b, e
+explanation:
+
+27. Whats the role of the spend key in Monero?
+a) prove ownership
+b)
+c)
+d) ability to spend funds
+correct: a, d
+explanation:
+
+28. Why is finding the correct transaction computationally expensive?
+a)
+b) a user must download every transaction on the blockchain and perform elliptic curve scalar multiplication to check if it belongs to them
+c)
+d)
+correct: b
+explanation:
+
+29. 
