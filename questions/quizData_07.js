@@ -4,10 +4,7 @@
 // Notation: K = public key, k = private key, G = generator, l = group order,
 // ∘ / + = group operation, c*P = P + ... + P (c times).
 
-const quizData_07 = {
-  lecture: 7,
-  title: "Lecture 7 (Monero)",
-  questions: [
+const quizData_07 = [
     {
       id: 1,
       type: "single",
@@ -429,7 +426,7 @@ const quizData_07 = {
         "Since one-time addresses are unlinkable, the wallet cannot look up its outputs. It has to take every output, compute the shared secret with the private view key (a scalar multiplication) and check whether the derived address matches. This is costly but needs no brute force and no discrete logarithm. Note: view tags (introduced in 2022) reduce this cost by allowing the wallet to skip most outputs after a cheap check."
     }
   ]
-};
+];
 
 // Works as a plain <script> include and as a CommonJS module.
 if (typeof module !== "undefined" && module.exports) {
