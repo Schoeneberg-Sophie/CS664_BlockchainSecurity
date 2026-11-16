@@ -343,6 +343,13 @@
                     onclick="startQuiz('06', this)">
                     Lecture 6
                 </button>
+
+                <button
+                    type="button"
+                    class="lecture-btn"
+                    onclick="startQuiz('07', this)">
+                    Lecture 7
+                </button>
             </div>
         </div>
 
@@ -403,6 +410,7 @@
     <script src="questions/quizData_04.js"></script>
     <script src="questions/quizData_05.js"></script>
     <script src="questions/quizData_06.js"></script>
+    <script src="questions/quizData_07.js"></script>
 
     <script>
 window.addEventListener("error", function (e) {
@@ -435,7 +443,10 @@ window.addEventListener("error", function (e) {
                 ? quizData_05 : [],
 
             "06": typeof quizData_06 !== "undefined"
-                ? quizData_06 : []
+                ? quizData_06 : [],
+
+             "07": typeof quizData_07 !== "undefined"
+                ? quizData_07 : []
         };
 
         // Quiz state
