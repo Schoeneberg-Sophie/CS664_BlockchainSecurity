@@ -1,0 +1,113 @@
+quizdata for lecture 7 (Monero)
+
+1. Compared to Bitocin, what are the advanatges of Monero?
+a)
+b)
+c) stronger privacy guarantees
+d)
+correct: c)
+explanation
+
+2. Map the tool to the correct goal (multiples are possible):
+a) Ring signature
+b) Ring confidential transactions
+c) stealth addresses
+d) key images
+e) pseudo output commitment
+f) range proof
+g) one-time address
+1) obfuscate sender
+2) obfuscate recipient
+3) detect double spending
+4) obfuscate transaction amount
+correct: 1-a, 2-c, 3-d, 4-b, 3-e, 4-f, 2-g
+explanation:
+
+
+3. What is an MLSAG signature?
+a)
+b) a signature that ensures authenticity
+c)
+d)
+correct: b
+explanation:
+
+4. What belongs into the Monero transaction input?:
+a) One-time adress
+b) ring member offset
+c) range proof
+d) MLSAG signature
+e) key image
+f) pseudo outpu commitment
+correct: b, d, e, f
+explanation:
+
+5. What belongs to the Monero transaction ouput?:
+a) one-time adress
+b) output commitment
+c) MLSAG signature
+d) range proof
+e) encoded transaction amount
+correct: a,b ,d, e
+explanation:
+
+6. What are not properties of a mathematical group (set)?:
+a) inverse element
+b) associativity
+c) commutativity
+d) identity element
+e) closure
+correct: c
+explanation:
+
+7. Map the correct definition to the corresponind property:
+a) for al A, B  ∈ Γ, the result of an operation  𝐴 ∘ B, is also in the set Γ
+b) for all A, B, C ∈ Γ, it holds that  A ∘ 𝐵 ∘ 𝐶 = 𝐴 ∘ (𝐵 ∘ 𝐶)
+c) for each A ∈ Γ, there exists an element A* ∈ Γ such that A ∘ A* = A* = E (where E is the identity matrix)
+d) there exists an element E ∈ Γ, such that for every element A ∈ Γ, E ∘ A = A ∘ E holds
+1) associativity
+2) inverse element
+3) closure
+4) identity matrix
+correct: 1-b, 2-d, 3-a, 4-c
+explanation:
+
+8. Question:
+Let Γ be a cyclic group with generator G, written Γ = ⟨G⟩. Which statement about the discrete logarithm is correct?
+a) The discrete logarithm of H to the basis G is the generator G itself.
+b) The discrete logarithm of H to the basis G is the non-negative integer c for which H = G ∘ G ∘ … ∘ G (c times), written c = log_G(H).
+c) The discrete logarithm of H to the basis G is the number of elements in Γ.
+d) The discrete logarithm of H to the basis G is the element obtained by combining H with itself c times.
+Correct answer: b
+Explanation: Since Γ is cyclic, every element H in Γ can be reached by applying the group
+operation to the generator G a certain number of times. That number c is the discrete logarithm of 
+H to the basis G. Option a mixes up the basis with the exponent. Option c describes the order of 
+the group, which is a different quantity. Option d reverses the roles: it is G that gets combined
+with itself, not H.
+
+9. With repspect to the Discrete Logarithm Problem, what is given and what is the task?
+a) given: radnomly chosen 𝐻 ∈ Γ
+b) task: find 𝐻 ∈ Γ
+c) given: chosen log_G(H)
+d) task: find log_G(H)
+correct: a, d
+explanation:
+
+10. an elliptic curve is...
+a)
+b)
+c) a set of all pairs (x,y) ∈ Z_P × 𝑍_P for which euqation (*) holds
+d) a special point 0 ∉ 𝑍_P, which is the neutral element
+correct: c, d
+explanation:
+
+11. What is the discrete logarithm problem (c⋅𝑃=𝑐P = 𝑃+⋯+P)?
+a) given P and Q = cP, find log_P(Q) = c
+b)
+c)
+d)
+correct: a)
+explanation:
+
+
+
