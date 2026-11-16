@@ -35,7 +35,7 @@
 
         /* Sidebar */
         .sidebar {
-            width: 250px;
+            width: 260px;
             flex-shrink: 0;
             background: #f8fafc;
             border-right: 1px solid #e2e8f0;
@@ -53,7 +53,7 @@
         .lecture-list {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         .lecture-btn {
@@ -77,6 +77,59 @@
             background-color: #fde68a;
             border-color: #f7931a;
             color: #78350f;
+        }
+
+        .lecture-btn.wip {
+            opacity: 0.65;
+            font-style: italic;
+        }
+
+        /* Topic Group Bars & Badges */
+        .topic-group {
+            display: flex;
+            align-items: stretch;
+            gap: 8px;
+        }
+
+        .topic-bar {
+            writing-mode: vertical-rl;
+            transform: rotate(180deg);
+            text-align: center;
+            font-size: 11px;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            padding: 8px 4px;
+            border-radius: 5px;
+            flex-shrink: 0;
+            user-select: none;
+        }
+
+        .topic-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* Topic Colors: Bitcoin (Yellow), Monero (Green), Ethereum (Blue) */
+        .topic-bitcoin {
+            background-color: #fef08a;
+            color: #854d0e;
+            border: 1px solid #eab308;
+        }
+
+        .topic-monero {
+            background-color: #bbf7d0;
+            color: #166534;
+            border: 1px solid #22c55e;
+        }
+
+        .topic-ethereum {
+            background-color: #bfdbfe;
+            color: #1e40af;
+            border: 1px solid #3b82f6;
         }
 
         /* Main content */
@@ -103,10 +156,28 @@
             font-size: 16px;
         }
 
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+            gap: 10px;
+        }
+
         #progress {
             font-size: 14px;
             color: #64748b;
-            margin-bottom: 8px;
+            margin-bottom: 0;
+        }
+
+        .topic-badge {
+            font-size: 12px;
+            font-weight: bold;
+            padding: 4px 10px;
+            border-radius: 999px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            flex-shrink: 0;
         }
 
         .question-container {
@@ -271,7 +342,7 @@
                 border-bottom: 1px solid #e2e8f0;
             }
 
-            .lecture-list {
+            .topic-buttons {
                 display: grid;
                 grid-template-columns: repeat(2, minmax(0, 1fr));
             }
@@ -302,54 +373,40 @@
                     All Lectures
                 </button>
 
-                <button
-                    type="button"
-                    class="lecture-btn"
-                    onclick="startQuiz('01', this)">
-                    Lecture 1
-                </button>
+                <!-- Bitcoin: Lectures 1 - 6 -->
+                <div class="topic-group">
+                    <div class="topic-bar topic-bitcoin">Bitcoin</div>
+                    <div class="topic-buttons">
+                        <button type="button" class="lecture-btn" onclick="startQuiz('01', this)">Lecture 1</button>
+                        <button type="button" class="lecture-btn" onclick="startQuiz('02', this)">Lecture 2</button>
+                        <button type="button" class="lecture-btn" onclick="startQuiz('03', this)">Lecture 3</button>
+                        <button type="button" class="lecture-btn" onclick="startQuiz('04', this)">Lecture 4</button>
+                        <button type="button" class="lecture-btn" onclick="startQuiz('05', this)">Lecture 5</button>
+                        <button type="button" class="lecture-btn" onclick="startQuiz('06', this)">Lecture 6</button>
+                    </div>
+                </div>
 
-                <button
-                    type="button"
-                    class="lecture-btn"
-                    onclick="startQuiz('02', this)">
-                    Lecture 2
-                </button>
+                <!-- Monero: Lectures 7 - 10 -->
+                <div class="topic-group">
+                    <div class="topic-bar topic-monero">Monero</div>
+                    <div class="topic-buttons">
+                        <button type="button" class="lecture-btn" onclick="startQuiz('07', this)">Lecture 7</button>
+                        <button type="button" class="lecture-btn wip" onclick="startQuiz('08', this)">Lecture 8 (WIP)</button>
+                        <button type="button" class="lecture-btn wip" onclick="startQuiz('09', this)">Lecture 9 (WIP)</button>
+                        <button type="button" class="lecture-btn wip" onclick="startQuiz('10', this)">Lecture 10 (WIP)</button>
+                    </div>
+                </div>
 
-                <button
-                    type="button"
-                    class="lecture-btn"
-                    onclick="startQuiz('03', this)">
-                    Lecture 3
-                </button>
-
-                <button
-                    type="button"
-                    class="lecture-btn"
-                    onclick="startQuiz('04', this)">
-                    Lecture 4
-                </button>
-
-                 <button
-                    type="button"
-                    class="lecture-btn"
-                    onclick="startQuiz('05', this)">
-                    Lecture 5
-                </button>
-
-                 <button
-                    type="button"
-                    class="lecture-btn"
-                    onclick="startQuiz('06', this)">
-                    Lecture 6
-                </button>
-
-                <button
-                    type="button"
-                    class="lecture-btn"
-                    onclick="startQuiz('07', this)">
-                    Lecture 7
-                </button>
+                <!-- Ethereum: Lectures 11 - 14 -->
+                <div class="topic-group">
+                    <div class="topic-bar topic-ethereum">Ethereum</div>
+                    <div class="topic-buttons">
+                        <button type="button" class="lecture-btn wip" onclick="startQuiz('11', this)">Lecture 11 (WIP)</button>
+                        <button type="button" class="lecture-btn wip" onclick="startQuiz('12', this)">Lecture 12 (WIP)</button>
+                        <button type="button" class="lecture-btn wip" onclick="startQuiz('13', this)">Lecture 13 (WIP)</button>
+                        <button type="button" class="lecture-btn wip" onclick="startQuiz('14', this)">Lecture 14 (WIP)</button>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -366,7 +423,10 @@
 
             <!-- Quiz screen -->
             <div id="quiz" style="display: none;">
-                <div id="progress"></div>
+                <div class="quiz-header">
+                    <div id="progress"></div>
+                    <span id="question-topic" class="topic-badge"></span>
+                </div>
 
                 <div class="question-container" id="question">
                     Loading question...
@@ -411,43 +471,48 @@
     <script src="questions/quizData_05.js"></script>
     <script src="questions/quizData_06.js"></script>
     <script src="questions/quizData_07.js"></script>
+    <script src="questions/quizData_08.js"></script>
+    <script src="questions/quizData_09.js"></script>
+    <script src="questions/quizData_10.js"></script>
+    <script src="questions/quizData_11.js"></script>
+    <script src="questions/quizData_12.js"></script>
+    <script src="questions/quizData_13.js"></script>
+    <script src="questions/quizData_14.js"></script>
 
-    <script>
-window.addEventListener("error", function (e) {
-    if (e.filename) {
-        alert("Script error in " + e.filename + " at line " + e.lineno + ":\n" + e.message);
-    } else if (e.target && e.target.src) {
-        alert("Could not load: " + e.target.src);
-    }
-}, true);
-</script>
-    
     <script>
         "use strict";
 
         // Lecture data
         const availableLectures = {
-            "01": typeof quizData_01 !== "undefined"
-                ? quizData_01 : [],
-
-            "02": typeof quizData_02 !== "undefined"
-                ? quizData_02 : [],
-
-            "03": typeof quizData_03 !== "undefined"
-                ? quizData_03 : [],
-
-            "04": typeof quizData_04 !== "undefined"
-                ? quizData_04 : [],
-
-            "05": typeof quizData_05 !== "undefined"
-                ? quizData_05 : [],
-
-            "06": typeof quizData_06 !== "undefined"
-                ? quizData_06 : [],
-
-             "07": typeof quizData_07 !== "undefined"
-                ? quizData_07 : []
+            "01": typeof quizData_01 !== "undefined" ? quizData_01 : [],
+            "02": typeof quizData_02 !== "undefined" ? quizData_02 : [],
+            "03": typeof quizData_03 !== "undefined" ? quizData_03 : [],
+            "04": typeof quizData_04 !== "undefined" ? quizData_04 : [],
+            "05": typeof quizData_05 !== "undefined" ? quizData_05 : [],
+            "06": typeof quizData_06 !== "undefined" ? quizData_06 : [],
+            "07": typeof quizData_07 !== "undefined" ? quizData_07 : [],
+            "08": typeof quizData_08 !== "undefined" ? quizData_08 : [],
+            "09": typeof quizData_09 !== "undefined" ? quizData_09 : [],
+            "10": typeof quizData_10 !== "undefined" ? quizData_10 : [],
+            "11": typeof quizData_11 !== "undefined" ? quizData_11 : [],
+            "12": typeof quizData_12 !== "undefined" ? quizData_12 : [],
+            "13": typeof quizData_13 !== "undefined" ? quizData_13 : [],
+            "14": typeof quizData_14 !== "undefined" ? quizData_14 : []
         };
+
+        function getTopicMeta(lectureId) {
+            const num = parseInt(lectureId, 10);
+            if (num >= 1 && num <= 6) {
+                return { label: "Bitcoin", className: "topic-bitcoin" };
+            }
+            if (num >= 7 && num <= 10) {
+                return { label: "Monero", className: "topic-monero" };
+            }
+            if (num >= 11 && num <= 14) {
+                return { label: "Ethereum", className: "topic-ethereum" };
+            }
+            return { label: "General", className: "" };
+        }
 
         // Quiz state
         let sessionQuestions = [];
@@ -467,6 +532,8 @@ window.addEventListener("error", function (e) {
             document.getElementById("quiz");
         const progressElement =
             document.getElementById("progress");
+        const topicBadgeElement =
+            document.getElementById("question-topic");
         const questionElement =
             document.getElementById("question");
         const imageElement =
@@ -484,15 +551,16 @@ window.addEventListener("error", function (e) {
         const resultElement =
             document.getElementById("result");
 
-
         // Start or restart a quiz
         function startQuiz(selectedLecture, btnElement) {
             let pool = [];
 
             if (selectedLecture === "all") {
-                Object.values(availableLectures).forEach(questions => {
+                Object.entries(availableLectures).forEach(([lecId, questions]) => {
                     if (Array.isArray(questions)) {
-                        pool.push(...questions);
+                        questions.forEach(q => {
+                            pool.push({ ...q, _lectureId: lecId });
+                        });
                     }
                 });
 
@@ -505,7 +573,10 @@ window.addEventListener("error", function (e) {
                     pool = [...quizData];
                 }
             } else {
-                pool = availableLectures[selectedLecture] || [];
+                const rawList = availableLectures[selectedLecture] || [];
+                pool = Array.isArray(rawList)
+                    ? rawList.map(q => ({ ...q, _lectureId: selectedLecture }))
+                    : [];
             }
 
             if (!Array.isArray(pool) || pool.length === 0) {
@@ -581,7 +652,6 @@ window.addEventListener("error", function (e) {
             nextQuestion();
         }
 
-
         // Weighted selection from unanswered questions only
         function getWeightedRandomIndex() {
             if (remainingQuestions.length === 0) {
@@ -604,7 +674,6 @@ window.addEventListener("error", function (e) {
             ];
         }
 
-
         // Display the current question
         function loadQuestion() {
             const q = sessionQuestions[activeQuestionPointer];
@@ -618,6 +687,11 @@ window.addEventListener("error", function (e) {
             selectedKeys = new Set();
             progressElement.textContent =
                 `Question ${totalAnswered + 1} of ${targetQuestionCount}`;
+
+            const topic = getTopicMeta(q._lectureId);
+            topicBadgeElement.textContent = topic.label;
+            topicBadgeElement.className = `topic-badge ${topic.className}`;
+
             questionElement.textContent = q.question;
             optionsElement.replaceChildren();
             feedbackElement.style.display = "none";
@@ -681,7 +755,7 @@ window.addEventListener("error", function (e) {
                 const button = document.createElement("button");
 
                 button.type = "button";
-                
+
                 // Support both object options and string options
                 const key = typeof option === "object" && option !== null
                     ? option.id
@@ -701,7 +775,6 @@ window.addEventListener("error", function (e) {
             });
         }
 
-
         // Normalize correct answers into an array of strings
         function getCorrectAnswers(q) {
             const correct = q.correct;
@@ -716,7 +789,6 @@ window.addEventListener("error", function (e) {
 
             return [];
         }
-
 
         // Select an option
         function selectOption(key, button) {
@@ -740,7 +812,6 @@ window.addEventListener("error", function (e) {
             }
             checkButton.disabled = selectedKeys.size === 0;
         }
-
 
         // Submit the current answer
         function submitCurrent() {
@@ -766,7 +837,6 @@ window.addEventListener("error", function (e) {
                 submitAnswer([...selectedKeys]);
             }
         }
-
 
         // Check the submitted answer
         function checkAnswer(q, given) {
@@ -802,7 +872,6 @@ window.addEventListener("error", function (e) {
                 [...correctSet].every(key => selectedSet.has(key))
             );
         }
-
 
         // Grade and display feedback
         function submitAnswer(given) {
@@ -872,7 +941,6 @@ window.addEventListener("error", function (e) {
             nextButton.style.display = "block";
         }
 
-
         // Show answer feedback safely
         function showFeedback(q, isCorrect) {
             feedbackElement.replaceChildren();
@@ -909,7 +977,6 @@ window.addEventListener("error", function (e) {
             feedbackElement.className = isCorrect ? "ok" : "bad";
             feedbackElement.style.display = "block";
         }
-
 
         // Move to the next unanswered question
         function nextQuestion() {
