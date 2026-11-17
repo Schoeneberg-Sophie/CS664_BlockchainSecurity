@@ -78,15 +78,15 @@ const quizData_05 = [
     },
     {
         type: "multiple",
-        question: "Which parameters are evaluated when determining the efficacy threshold ($\gamma$ and $\alpha$) of selfish mining?",
+        question: "Which parameters are evaluated when determining the efficacy threshold ( gamma and  alpha) of selfish mining?",
         options: {
             a: "The block reward reduction percentage after a halving event",
-            b: "The fraction of the total mining power ($\alpha$) possessed by selfish miners relative to honest nodes",
-            c: "The fraction of honest miners ($\gamma$) that choose to mine on the selfish miners' branch during a tie/fork",
+            b: "The fraction of the total mining power ( alpha) possessed by selfish miners relative to honest nodes",
+            c: "The fraction of honest miners ( gamma) that choose to mine on the selfish miners' branch during a tie/fork",
             d: "The average network latency in propagation between full nodes"
         },
         correct: ["b", "c"],
-        explanation: "In the Eyal and Sirer model for Selfish Mining, profitability depends on $\alpha$ (the selfish miners' share of total hash rate) and $\gamma$ (the proportion of honest miners that propagate and mine on the selfish branch during equal-length chain races)."
+        explanation: "In the Eyal and Sirer model for Selfish Mining, profitability depends on  alpha (the selfish miners' share of total hash rate) and  gamma (the proportion of honest miners that propagate and mine on the selfish branch during equal-length chain races)."
     },
     {
         type: "single",
@@ -129,12 +129,12 @@ const quizData_05 = [
         question: "What is a key difference between a 51% attack and a Selfish Mining strategy?",
         options: {
             a: "Selfish mining requires 100% network control",
-            b: "Selfish mining can be profitable even with less than 50% of total network hash rate ($\alpha < 0.5$)",
+            b: "Selfish mining can be profitable even with less than 50% of total network hash rate ( alpha < 0.5)",
             c: "51% attacks do not alter transaction history, whereas selfish mining does",
             d: "Selfish mining requires changing the core consensus protocol rules"
         },
         correct: "b",
-        explanation: "Unlike a 51% attack which requires majority control ($\alpha > 0.5$), selfish mining can yield higher relative rewards for collusion pools with as little as 33% (or even less depending on $\gamma$) of total mining power."
+        explanation: "Unlike a 51% attack which requires majority control ( alpha > 0.5), selfish mining can yield higher relative rewards for collusion pools with as little as 33% (or even less depending on  gamma) of total mining power."
     },
     {
         type: "single",
@@ -150,7 +150,7 @@ const quizData_05 = [
     },
     {
         type: "single",
-        question: "In selfish mining, what happens when the secret chain lead over the public chain drops to only 1 block ($l = 1$) and the honest network finds a block?",
+        question: "In selfish mining, what happens when the secret chain lead over the public chain drops to only 1 block (l = 1) and the honest network finds a block?",
         options: {
             a: "The selfish miner discards their secret block and switches back to the public chain",
             b: "The selfish miner immediately publishes their 1 secret block to trigger a race condition against the public block",
@@ -158,7 +158,7 @@ const quizData_05 = [
             d: "The selfish miner burns the transaction fees from their block"
         },
         correct: "b",
-        explanation: "When the secret lead is reduced to 1 and the honest network finds a competing block, the selfish miner immediately releases their secret block into the network to create a 1-versus-1 chain race, attempting to capture a portion of the honest nodes ($\gamma$)."
+        explanation: "When the secret lead is reduced to 1 and the honest network finds a competing block, the selfish miner immediately releases their secret block into the network to create a 1-versus-1 chain race, attempting to capture a portion of the honest nodes ( gamma)."
     },
     {
         type: "multiple",
@@ -166,22 +166,22 @@ const quizData_05 = [
         options: {
             a: "The total number of full nodes running lightweight SPV clients",
             b: "The memory limit of the node mempool",
-            c: "The share of mining power ($\alpha$) controlled by the selfish pool",
-            d: "The fraction ($\gamma$) of honest miners that mine on top of the selfish pool's revealed block during a split"
+            c: "The share of mining power ( alpha) controlled by the selfish pool",
+            d: "The fraction ( gamma) of honest miners that mine on top of the selfish pool's revealed block during a split"
         },
         correct: ["c", "d"],
-        explanation: "Selfish mining revenue is a function of $\alpha$ (pool hash rate) and $\gamma$ (network connectivity/propagation advantage during tie breaks)."
+        explanation: "Selfish mining revenue is a function of  alpha (pool hash rate) and  gamma (network connectivity/propagation advantage during tie breaks)."
     },
     {
         type: "single",
-        question: "In selfish mining, if the fraction of honest miners operating on the secret branch ($\gamma$) decreases, what happens to the minimum required hash rate threshold ($\alpha$) needed for selfish mining to remain profitable?",
+        question: "In selfish mining, if the fraction of honest miners operating on the secret branch ( gamma) decreases, what happens to the minimum required hash rate threshold ( alpha) needed for selfish mining to remain profitable?",
         options: {
-            a: "The required hash rate share ($\alpha$) needed by selfish miners increases toward 1/3 (33.3%)",
-            b: "The required hash rate share ($\alpha$) drops to 0%",
-            c: "The required hash rate share ($\alpha$) remains fixed regardless of $\gamma$",
+            a: "The required hash rate share ( alpha) needed by selfish miners increases toward 1/3 (33.3%)",
+            b: "The required hash rate share ( alpha) drops to 0%",
+            c: "The required hash rate share ( alpha) remains fixed regardless of  gamma",
             d: "Selfish mining becomes instantly profitable at any hash rate"
         },
         correct: "a",
-        explanation: "When $\gamma = 0$ (no honest miners build on the selfish pool's revealed block during a tie), the threshold for profitable selfish mining rises to $\alpha = 1/3$ (~33%). If $\gamma = 1$, the threshold drops to near $0\%$."
+        explanation: "When  gamma = 0 (no honest miners build on the selfish pool's revealed block during a tie), the threshold for profitable selfish mining rises to  alpha = 1/3 (~33%). If  gamma = 1, the threshold drops to near 0\%."
     }
 ];
