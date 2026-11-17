@@ -1,0 +1,132 @@
+quiz content lecture 8 (monero: sigantures, ring signatures, key images)
+
+1. What is not an acceptable output in a Schnorr Protocol?
+a) Output (c,r)
+b) Output (aG, r)
+c) Ouput(a,r)
+d) Output (K,r)
+correct: c,d 
+explanation:
+
+2. For any given address K°, how does computing the response change?:
+a)
+b) r =  a - c * k°
+c)
+d) r = a + c * k°
+correct: b, d
+explanation:
+
+3. True or false: a message is m  ∈ {0 ,…, ℓ}
+a) TRUE
+b) FALSE
+correct: b
+explanation:
+
+4. In Monero, a transaction input refers to a previous output, here:
+a) an output address (K°, rG)
+b) an output address Hash(K°, rG)G
+c)
+d) an output address (K°, 𝜏G)
+correct: a, d
+explanation:
+
+5. What are rign signatures used for?
+a)
+b) conceal which output address has been used
+c) provide signatur for K° without revealing K°
+d)
+correct: b, c
+explanation:
+
+6. Switching from a single signature to a ring signature, which elements change?
+a) K° becomes K°1, ..., K°N
+b) c becomes c1, ..., cn
+c)
+d) r becomes r1, ..., rn
+correct: a b, d
+explanation
+
+7. The formula c2 = H(m, r1G + c1K°1) is ...
+a) correct
+b incorrect
+correct: a
+explanation:
+
+7. The formula c1 = H(m, r1G + c1K°1) is ...
+a) correct
+b incorrect
+correct: b
+explanation:
+
+8. In a ring signature, every other address /public key  K°i not uses as the actual address is...
+a) a decoy key
+b)
+c)
+d)
+correct: a
+explanation:
+
+9. The more decoy key are in a rign signature...
+a)
+b) the more computationally expensive it is
+c) the lower the risk of an attacker deanonymising the user
+d) 
+correct: b,c
+explanation:
+
+10. In a ring signature, decoy keys are:
+a) mathematcally computed and artificial
+b) taken from other users
+correct: b
+explanation:
+
+11. What does R describe here?
+[picture ring_signatures]
+a) {K°1, ..., K°n}
+b) {K°π}
+c)
+d)
+correct: a
+explanation: 
+
+12. In ring signatures, whats the first step?
+a) 
+b) create a secret a and fake challenger c
+c) 
+d) create a secret a and fake response r
+correct: d
+explanation:
+
+13. For a response i ≠ π, why is i not allowed to be π?
+a)
+b)
+c)
+d)
+cprrect: 
+explanation:
+
+14. In ring Signatures, how is c_i+1  computed?
+a)
+b) c_i+1 = H(R, m, riG + ciK°)
+c) c_i+1 = H(R, m, riG + ciK°i)
+d) 
+correct: c
+explanation:
+
+15. in ring signatures, how is the gap closed?:
+a) by knowing the secret key k to compute the correct r based on a given c
+b)  by knowing the secret key k to compute the correct a based on a given c
+c)
+d)
+correct: a
+explanation:
+
+15. In ring signatures, what is handed to the verifier as proof?
+a) 
+b) the signatures (c1, r1, ... rn)
+c)
+d)
+correct: b)
+explanation: 
+
+
