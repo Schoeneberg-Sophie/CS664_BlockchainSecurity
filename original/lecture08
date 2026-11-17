@@ -5,128 +5,154 @@ a) Output (c,r)
 b) Output (aG, r)
 c) Ouput(a,r)
 d) Output (K,r)
-correct: c,d 
-explanation:
-
+correct: c,d
+explanation: You can never output the secret random nonce a because an attacker can use it to instantly compute your private key (k = (a - r)/c). Outputting just the public key K and response r lacks the commitment link entirely, making verification impossible. Acceptable valid outputs are either the commitment point and response (aG, r) or the challenge and response (c, r).
 2. For any given address K°, how does computing the response change?:
-a)
+a) r = a + c * k°
 b) r =  a - c * k°
-c)
+c) r = a * k° - c
 d) r = a + c * k°
 correct: b, d
-explanation:
-
+explanation: The response calculation relies on combining the ephemeral random nonce a with the product of the challenge c and the secret key k°. Depending on the specific algebraic layout of the protocol, it follows either r = a - c * k° or r = a + c * k°.
 3. True or false: a message is m  ∈ {0 ,…, ℓ}
 a) TRUE
 b) FALSE
 correct: b
-explanation:
-
-4. In Monero, a transaction input refers to a previous output, here:
+explanation: In cryptographic protocols, messages m are treated as arbitrary bitstrings (or elements mapped via a hash function), whereas scalars like challenges, nonces, and secret keys belong to a finite field of integers modulo the curve order (Z_q).
+4. In Monero, a transaction input references a previous output, here:
 a) an output address (K°, rG)
 b) an output address Hash(K°, rG)G
-c)
+c) an output address (K°, cK°)
 d) an output address (K°, 𝜏G)
 correct: a, d
-explanation:
-
+explanation: Transaction inputs in a ring signature bundle the target public key/stealth address K° along with the response component expressed as a curve point (𝜏G or rG, where 𝜏 or r is the response scalar).
 5. What are rign signatures used for?
-a)
-b) conceal which output address has been used
-c) provide signatur for K° without revealing K°
-d)
+a) to encrypt the message content for the recipient
+b) to conceal which output address has been used
+c) to provide signatur for K° without revealing K°
+d) to speed up blockchain consensus times
 correct: b, c
-explanation:
-
+explanation: Ring signatures provide signer anonymity by grouping a real public key with multiple foreign decoy keys, making it impossible for an observer to tell which member of the ring actually authorized the transaction.
 6. Switching from a single signature to a ring signature, which elements change?
 a) K° becomes K°1, ..., K°N
 b) c becomes c1, ..., cn
-c)
+c) The private key k is multiplied by n
 d) r becomes r1, ..., rn
 correct: a b, d
-explanation
-
+explanation: A ring signature scales up all per-user variables into a set across n participants: the single public key becomes a set of keys R, the single challenge expands into a circular chain of challenges (c1, ..., cn), and each member requires a corresponding response scalar (r1, ..., rn).
 7. The formula c2 = H(m, r1G + c1K°1) is ...
 a) correct
-b incorrect
+b) incorrect
 correct: a
-explanation:
-
-7. The formula c1 = H(m, r1G + c1K°1) is ...
+explanation: This is the standard recurrence relation for advancing the challenge hash chain in a ring signature, binding the message m, the ring parameters, and the verification check of step 1 into the next challenge c2.
+8. The formula c1 = H(m, r1G + c1K°1) is ...
 a) correct
-b incorrect
+b) incorrect
 correct: b
-explanation:
-
-8. In a ring signature, every other address /public key  K°i not uses as the actual address is...
+explanation: c1 is the starting anchor challenge of the entire ring. You cannot define c1 as a direct hash function output of r1 and c1 itself without creating a broken circular dependency; c1 is wrapped around from the very last step (cn).
+9. In a ring signature, every other address /public key  K°i not uses as the actual address is...
 a) a decoy key
-b)
-c)
-d)
+b) a master root key
+c) a burn address key
+d) an invalid dummy coordinate
 correct: a
-explanation:
-
-9. The more decoy key are in a rign signature...
-a)
+explanation: Keys belonging to other users pulled from the blockchain history act as decoys (or mixins) to mask the identity of the true signer.
+10. The more decoy key are in a rign signature...
+a) the faster the transaction processes
 b) the more computationally expensive it is
 c) the lower the risk of an attacker deanonymising the user
-d) 
+d) the smaller the transaction size on the blockchain
 correct: b,c
-explanation:
-
-10. In a ring signature, decoy keys are:
+explanation: Increasing the ring size widens the anonymity set, strengthening privacy against tracking, but linearly increases the data size and cryptographic verification overhead for nodes.
+11. In a ring signature, decoy keys are:
 a) mathematcally computed and artificial
 b) taken from other users
+c) generated randomly by the user's wallet software
+d) hardcoded protocol constants
 correct: b
-explanation:
-
-11. What does R describe here?
+explanation: Decoys must be real, historical public keys from the blockchain ledger so they blend in indistinguishably with valid outputs.
+12. What does R describe here?
 [picture ring_signatures]
 a) {K°1, ..., K°n}
 b) {K°π}
-c)
-d)
+c) {r1, ..., rn}
+d) {c1, ..., cn}
 correct: a
-explanation: 
-
-12. In ring signatures, whats the first step?
-a) 
-b) create a secret a and fake challenger c
-c) 
+explanation: R represents the complete set or vector of all public keys (both real and decoy) included in the ring.
+13. In ring signatures, whats the first step?
+a) compute the real response r_π immediately
+b) broadcast the transaction to the mempool
+c) hash the private key against the message
 d) create a secret a and fake response r
 correct: d
-explanation:
-
-13. For a response i ≠ π, why is i not allowed to be π?
-a)
-b)
-c)
-d)
-cprrect: 
-explanation:
-
-14. In ring Signatures, how is c_i+1  computed?
-a)
+explanation: To build the ring, the signer starts by drawing random responses for all decoy positions and setting up their own ephemeral nonce a at position π.
+14. For a response i ≠ π, why is i not allowed to be π?
+a) Because index π is reserved exclusively for the real signer's calculated response using their private key.
+b) Because decoy loops must always start at index 0.
+c) Because index π represents a checksum value.
+d) There is no restriction; π can be any index.
+correct: a
+explanation: Index π designates the true signer's position. Decoys use randomly sampled fake responses, whereas position π requires a precise mathematical gap-closing calculation using the secret key k_π.
+15. In ring Signatures, how is c_i+1  computed?
+a) c_i+1 = H(r_i, c_i)
 b) c_i+1 = H(R, m, riG + ciK°)
 c) c_i+1 = H(R, m, riG + ciK°i)
-d) 
+d) c_i+1 = H(m, aG)
 correct: c
-explanation:
-
-15. in ring signatures, how is the gap closed?:
+explanation: Each step in the ring chain advances by hashing the ring set R, the message m, and the re-combined verification point specific to that index node K°i.
+16. in ring signatures, how is the gap closed?:
 a) by knowing the secret key k to compute the correct r based on a given c
 b)  by knowing the secret key k to compute the correct a based on a given c
-c)
-d)
+c) by looping through the hash function until a collision is found
+d) by setting all decoy responses to zero
 correct: a
-explanation:
-
-15. In ring signatures, what is handed to the verifier as proof?
-a) 
+explanation: The signer uses their secret key k to solve for their specific response r_π (e.g., a = r_π + c_π * k_π°), which bridges the open gap in the circular challenge chain.
+17. In ring signatures, what is handed to the verifier as proof?
+a) The raw private key k
 b) the signatures (c1, r1, ... rn)
-c)
-d)
-correct: b)
-explanation: 
-
-
+c) The random nonce a and all intermediate hash points
+d) The list of all decoy private keys
+correct: b
+explanation: The compact proof handed to the verifier consists entirely of the starting challenge c1 and the full array of responses (r1, ..., rn).
+18. Why are key images necessary?
+a) a key generates a unique key image that prevents double spending
+b) They compress the size of the public key ring.
+c) They encrypt the transaction amount.
+d) They replace public keys entirely.
+correct: a
+explanation: Key images act as a deterministic tag linked to a specific private key, ensuring that if a user tries to spend the same output twice, the duplicate key image is flagged on-chain.
+19. How is a key image generated?
+a) K" := k° * G
+b) K" := H(K°)
+c) K" := k° * H_P(K°)
+d) K" := r * G + c * K°
+correct: c
+explanation: A key image is computed by multiplying the private key scalar k° by the hash-to-point output of the public key H_P(K°).
+20. A key image is generated as such: K" := k° H_P(K°). What is the difference between using H and H_P?
+a) H outputs elliptic curve points while H_P outputs integers.
+b) H_p maps Elliptical Curve points to Elliptical Curve points, while H maps EC points to integers
+c) H_P is a private hash function whereas H is public.
+d) There is no mathematical difference.
+correct: b
+explanation: H_P (Hash-to-Point) is a specialized cryptographic hash that lands precisely on the elliptic curve structure, whereas regular cryptographic hash functions (H) output raw scalar bit arrays.
+21. A ring signature without key images looks like this: ci+1 = H(m, riG + ciK°i). What changes when adding a key image?
+a) Nothing changes in the hash function.
+b) ci+1 = H(m, riG + ciK°i, riH_P(K°i))
+c) ci+1 = H(m, riG + ciK°i, ciK")
+d) ci+1 = H(m, riG + ciK°i, riH_P(K°i) + ciK")
+correct: d
+explanation: Linkable ring signatures extend each step of the challenge hash to include a second parallel verification track containing both the response contribution to the hash-to-point term and the scaled key image term (ri * H_P(K°i) + ci * K").
+22. When creating a signature with a key image, what is changed compared to ring signatures with no key image?
+a) The message length must be doubled.
+b) together with the secret a and the fake response ri, a key image K" := k° H_P(K°) needs to be computed
+c) All decoy public keys must be encrypted.
+d) ci+1 is computed such that = H(m, riG + ciK°i, riH_P(K°i) + ciK")
+correct: b
+explanation: The core structural addition of linkability is computing and publishing the unique key image K" so verifiers can check against double-spends.
+23. A ring signature proves that the signer knows the secret k such that for some index π:
+a) kG = K°π
+b) k * H_P(K°π) = K"
+c) k + G = K"
+d) k * c = a
+correct: a, b
+explanation: The proof simultaneously guarantees ownership of the public key in the ring (k * G = K°π) and correct derivation of the tracking key image (k * H_P(K°π) = K").
