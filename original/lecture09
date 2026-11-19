@@ -91,10 +91,11 @@ explanation:
 12. In Ring Confidential Transactions (RingCT)...
 a)
 b) a transaction with N transaction inputs has N rings of p previous outputs
-c)
+c) in each ring, there is exactly one pseudo output commitment
 d) each ring n has one real transaction output plus decoys refrerring to the transaction input
-e) in each ring, there is exactly one pseudo output commitment
-
+e) in each input, there is exactly one pseudo output commitment
+correct: b, d, e
+explanation: 
 
 13. in RingCT...
 a) ring hides which past output the user spent
@@ -112,5 +113,63 @@ d) prove that the sum of inputs = sum of outputs (transaction balance)
 correct: d
 explanation:
 
+15. The pseudo output commitment is necessary because...
+a)
+b) the transaction amounts in the ring differ, so the pseudo output commitment always includes the real value of the transaction (without revealing it)
+c)
+d)
+correct: b
+explanation: 
 
+16. In RingCT, the pseudo output commitment is compared to each ring member to show that one (C' - C*) of them commits to zero
+a) TRue
+b) FALSE
+correct: a
+explanation:
+
+17. What are the uses of ring signatures?
+a) signing transactions for a one-time output address K°
+b)
+c) proving the correctness of key image
+d) linking output commitments in a ring with the pseudo output commitment
+e)
+f)
+correct: a, c, d
+explanation: 
+
+18. In Ring Confidential Transactions (RingCT), what serves as the "public keys" used inside the ring signature loop for a given input?
+a) The raw wallet addresses of the senders from previous transactions
+b) The difference obtained by subtracting the input's pseudo output commitment from each prior output commitment in the ring
+c) The total sum of all new output commitments created in the transaction
+d) The secret blinding factors chosen by the recipient of the transaction   
+Correct: b)
+Explanation:
+For each member in an input's ring, the system subtracts the input's pseudo output commitment
+from that prior output commitment. These resulting differences act as the "public keys" of the
+ring signature. For the one real spent output in the ring, the committed amounts match and cancel 
+out, allowing the sender to complete the ring signature loop without revealing which ring member 
+was actually spent. 
+
+19. In Transaction Inputs and Outputs, both log(G) and log_G(H) are known.
+a) TRUE
+b) FALSE
+correct: b
+explanation:
+
+20. What commitment is used to create a fee f?
+a) commit(0,f) = fH
+b)
+c)
+d)
+correct: a
+explanation:
+
+21. When including a fee in a transaction, how does the transaction change?
+a)
+b)
+c) ∑ai - ∑aj = f
+d)
+e) ∑Ci* - ∑Cj = fH
+correct: c,e
+explanation:
 
