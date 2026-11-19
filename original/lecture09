@@ -1,0 +1,116 @@
+quiz content lecture 9 ( pedersen commitment, pseudo output commitment)
+
+1. What is not a propoerty of a commitment?
+a) hiding
+b) 
+c) binding
+d)
+correct: c, d
+explanation:
+
+2. What secuirty issues arises from a simple commitment Commit(a) = aG?
+a)
+b)
+c) the attacker can guess various values of a' to expose the secret
+d)
+correct: c
+explanation:
+
+3. What other factir is added in a commitment to hide the transaction amount?
+a)
+b)
+c)
+d) a blinding factir x
+correct: d
+explanation:
+
+4. What would a published transaction look like?
+a) K°, rG, Commit(x,a), α
+b)
+c)
+d)
+correct: a
+explanation:
+
+5. how is the blinding factor x computed?
+a)
+b) x= rK^r_R
+c)
+d)
+correct: b
+explanation:
+
+6. In a published transaction  K°, rG, Commit(x,a), α, why is α necessary?
+a)
+b) together with rK^v_R it determines a (amount of transaction)
+c)
+d)
+correct: a
+explanation:
+
+7. In which part of the transaction are pedersen commitments included?
+a)
+b) in the transaction inputs
+c) in the transaction outputs
+d) in both transaction inputs and outputs
+correct: d
+explanation
+
+8. LInking output commitment, how is equality proven?
+a) by showing that C' of the previous transaction output equals C of the current transaction output (they commit to the same amount)
+b)
+c)
+d) it holds that the sender knows  log𝐺(𝐶 −𝐶′) = (𝑥−𝑥′)
+correct: d
+explanation:
+
+9. When proving that output transactions C' and C commit to the same amount a, which protocol are used?
+a)
+b) schnorr protocoll
+c) pedersen commitment
+d) 
+correct; b,c 
+explanation:
+
+10. Why can a simple output commitment not be used in a ring signature?
+a)
+b)
+c)
+d) it revelas which two commitments commit to log𝐺(𝐶 −𝐶′π) = (𝑥−𝑥′), thus revelaing the amount
+correct: d
+explanation:
+
+11. HOw does a pseudo ouput commitment ensure anonymity for transactions?
+a) by hiding which transactions outputs commit to log𝐺(𝐶 −𝐶′π) = (𝑥−𝑥′)
+b)
+c)
+d)
+correct: a
+explanation:
+
+12. In Ring Confidential Transactions (RingCT)...
+a)
+b) a transaction with N transaction inputs has N rings of p previous outputs
+c)
+d) each ring n has one real transaction output plus decoys refrerring to the transaction input
+e) in each ring, there is exactly one pseudo output commitment
+
+
+13. in RingCT...
+a) ring hides which past output the user spent
+b)
+c) the pseudo output commitment proves how much a user is spending from that input so the transaction balances
+d)
+correct: a, c
+explanation:
+
+14. the primary purpose of Pseudo Output Commitments is..
+a)
+b)
+c)
+d) prove that the sum of inputs = sum of outputs (transaction balance)
+correct: d
+explanation:
+
+
+
