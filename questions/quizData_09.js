@@ -315,5 +315,19 @@ const quizData_09 = [
     correct: ["c", "e"],
     explanation:
       "The difference between total input amounts and total output amounts equals the fee f (∑a_i - ∑a_j = f), and in commitment form the difference between pseudo-output commitments and output commitments equals fH (∑C_i* - ∑C_j = fH)."
+  },
+  {
+    id: 22,
+    type: "single",
+    question: "A Key Image binds to...",
+    options: [
+      {id: "a", text: "the public view key"},
+      {id: "b", text: "the secret view key"},
+      {id: "c", text: "the public spend key"},
+      {id: "d", text: "the secret spend key"},
+    ],
+    correct: ["d"],
+    explanation: 
+      "It binds to the private spend key of that specific output. If the ouput has already been spent, the key image will be identical to the one already on the blockchain and the transaction will be rejected."
   }
 ];
