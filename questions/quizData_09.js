@@ -324,7 +324,7 @@ const quizData_09 = [
       {id: "a", text: "the public view key"},
       {id: "b", text: "the secret view key"},
       {id: "c", text: "the public spend key"},
-      {id: "d", text: "the secret spend key"},
+      {id: "d", text: "the secret spend key"}
     ],
     correct: ["d"],
     explanation: 
