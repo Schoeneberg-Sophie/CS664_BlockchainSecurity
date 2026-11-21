@@ -332,7 +332,7 @@ const quizData_09 = [
   },
   {
     id: 23,
-    type: "Single",
+    type: "single",
     question: "Nodes check that the sum of pseudo-output commitments equals ...",
     options: [
       {id: "a", text: "the sum of new output commitments plus the fee."},
@@ -342,5 +342,17 @@ const quizData_09 = [
     ],
     correct: ["a"],
     explanation: "For each spent input, the sneder creates a pseudo output commitment committing to the same value aas the real spent input. The  ring signature proves at least one transcations in the ring commits to the same value as the pseudo output commitment. Nodes then check that the sum of all pseudo output commitments is equal the sum of new transaction output plus the fee. "
-  }
+  },
+  {
+    id: 24,
+    type: "multiple",
+    question: "While the key image prevents the same input being spent multiple times, the output commitment ...",
+    options: [
+      {id: "a", text: "does not have a cryptographic function."},
+      {id: "b", text: "prevents the user from being deanonymised."},
+      {id: "c", text: "prevents the user from artificially inflating or deflating values."},
+      {id: "d", text: "stops negative values from being used, while allowing balance verification."} 
+    ],
+    correct: ["c", "d"],
+    explanation: "Without the output commitment, a user could create an output of -99 XMR and 100 XMR, making the total 1 XMR while still giving him 100XMR to spend. The Network catches it by checking the total sum of pseudo-input commitments against the sum of new output commitments plus the fee, as well as using range proofs. "
 ];
