@@ -329,5 +329,18 @@ const quizData_09 = [
     correct: ["d"],
     explanation: 
       "It binds to the private spend key of that specific output. If the ouput has already been spent, the key image will be identical to the one already on the blockchain and the transaction will be rejected."
+  },
+  {
+    id: 23,
+    type: "Single",
+    question: "Nodes check that the sum of pseudo-output commitments equals ...",
+    options: [
+      {id: "a", text: "the sum of new output commitments plus the fee.",
+      {id: "b", text: "the key image's output amount.",
+      {id: "c", text: "the sum of prior transactions.",
+      {id: "d", text: "the sum of new output commitments."
+    ],
+    correct: ["a"],
+    explanation: "For each spent input, the sneder creates a pseudo output commitment committing to the same value aas the real spent input. The  ring signature proves at least one transcations in the ring commits to the same value as the pseudo output commitment. Nodes then check that the sum of all pseudo output commitments is equal the sum of new transaction output plus the fee. "
   }
 ];
