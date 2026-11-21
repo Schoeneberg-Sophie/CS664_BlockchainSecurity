@@ -335,10 +335,10 @@ const quizData_09 = [
     type: "Single",
     question: "Nodes check that the sum of pseudo-output commitments equals ...",
     options: [
-      {id: "a", text: "the sum of new output commitments plus the fee.",
-      {id: "b", text: "the key image's output amount.",
-      {id: "c", text: "the sum of prior transactions.",
-      {id: "d", text: "the sum of new output commitments."
+      {id: "a", text: "the sum of new output commitments plus the fee."},
+      {id: "b", text: "the key image's output amount."},
+      {id: "c", text: "the sum of prior transactions."},
+      {id: "d", text: "the sum of new output commitments."}
     ],
     correct: ["a"],
     explanation: "For each spent input, the sneder creates a pseudo output commitment committing to the same value aas the real spent input. The  ring signature proves at least one transcations in the ring commits to the same value as the pseudo output commitment. Nodes then check that the sum of all pseudo output commitments is equal the sum of new transaction output plus the fee. "
