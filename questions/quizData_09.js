@@ -355,4 +355,5 @@ const quizData_09 = [
     ],
     correct: ["c", "d"],
     explanation: "Without the output commitment, a user could create an output of -99 XMR and 100 XMR, making the total 1 XMR while still giving him 100XMR to spend. The Network catches it by checking the total sum of pseudo-input commitments against the sum of new output commitments plus the fee, as well as using range proofs. "
-];
+  }
+    ];
