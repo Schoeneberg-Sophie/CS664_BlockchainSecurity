@@ -1,6 +1,6 @@
 // monero range proofs, janus attacks and decoy selection
 
-const quizData_09 = [
+const quizData_10 = [
   {
     id: 1,
     type: "single",
