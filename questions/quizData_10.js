@@ -92,5 +92,18 @@ const quizData_09 = [
   ],
   correct: ["a"],
   explanation: "If mimicking the true spending distribution is imperfect or fails, an observer still cannot immediately pinpoint the real spend when multiple plausible outputs share the same bin or block."
+},
+{
+  id: 8,
+  type: "single",
+  question: "In a Janus Attack, K^(v,i) (another potential subaddress) is used instead of K(v,i). Why not K^(s,i)?",
+  options: [
+    {id: "a", text: "Because K^(s,i) is the private spend key, which the sender cannot compute without knowing the recipient's wallet seed."},
+    {id: "b", text: "Because K^(s,i) is not included in K°, thus giving no insights into how subadresses are connected."},
+    {id: "c", text: "Because using K^(s,i) prevents the recipient's wallet from scanning incoming outputs at all, causing the transaction to be ignored."},
+    {id: "d", text: "Because K^(s,i) is identical across all subaddresses in a wallet, so it cannot distinguish between subaddress i and another subaddress."}
+  ],
+  correct: ["b"],
+  explanation: "In a Janus attack targeting subaddresses, the attacker mixes components from different subaddresses to trick a wallet into claiming an output under a subaddress while letting the sender link subaddresses belonging to the same wallet. K^(s,i) does not enter the output derivation K° in the same way to expose subaddress linkage."
 }
     ];
