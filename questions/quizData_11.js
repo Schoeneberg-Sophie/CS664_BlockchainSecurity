@@ -1,4 +1,4 @@
-// Ethereum  basics (accounts
+// Ethereum  basics (accounts, transactions, account types, and basics)
 
 const quizData_11 = [
   {
