@@ -122,5 +122,18 @@ const quizData_10 = [
       correct: ["1-c", "2-b", "3-a"],
       explanation:
         "Ring signatures hide which ring member is the real sender. Stealth addresses and the one-time addresses derived from them hide the recipient. Key images are unique per spent output, so a second spend of the same output produces the same key image and is detected. RingCT hides amounts; its building blocks are pseudo output commitments (they hide the input amount while letting verifiers check that inputs equal outputs plus fee) and range proofs (they show that hidden amounts are non-negative and cannot overflow)."
-    }
+    },
+  {
+    id: 10,
+    type: "single",
+    question: "Why is showing (∑A_i - ∑a_j)H = 0 not sufficient?",
+    options: [
+      {id: "a", text: "Because the salt x is missing."},
+      {id: "b", text: "Because log_G(H) is unknown."},
+      {id: "c", text: "It is."},
+      {id: "d", text: "Because the values of a can be manipulated."}
+      ],
+    correct: ["d"],
+    explanation: "Showing that (∑A_i - ∑a_j)H = 0 is not enough as values of a can be manipulated to be outise the range of the group, as such as Range Proof is necessary."
+  }
     ];
