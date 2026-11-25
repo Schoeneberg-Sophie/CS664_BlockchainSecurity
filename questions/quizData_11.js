@@ -41,7 +41,7 @@ const quizData_11 = [
       {id: "f", text: "StorageHash"}
       ],
     correct: ["a", "d"],
-    explanation: "Unspent ETH are not recorded as the balance already records how many ETH a user has.The Merkle-Patricia-Trie is also not part of an account but rather of the Ethereum blockchain. The StorageHash does, however, save the root hash of the users own storage trie.   "
+    anation: "Unspent ETH are not recorded as the balance already records how many ETH a user has.The Merkle-Patricia-Trie is also not part of an account but rather of the Ethereum blockchain. The StorageHash does, however, save the root hash of the users own storage trie.   "
   },  
   {
     id: 4,
@@ -65,7 +65,7 @@ const quizData_11 = [
       {id: "d", text: "Via miners"}
       ],
     correct: ["c"],
-    explanation: "Code is executed on the Ethereum Virtual Machine."
+    anation: "Code is executed on the Ethereum Virtual Machine."
   },
   {
     id: 6,
@@ -89,7 +89,7 @@ const quizData_11 = [
       {id: "a", text: "Each code can only be executed once."},
       {id: "b", text: "The state can only change accoridng to pre-established rules."},
       {id: "c", text: "The machine can only be in exactly one state at a time."},
-      {id: "d", text: "Finite State Machines are explicitly created to be executed only once."},
+      {id: "d", text: "Finite State Machines are icitly created to be executed only once."},
       {id: "e", text: "Each state can be reversed given a set of rules."}
       ],
     correct: ["b", "c"],
@@ -106,7 +106,7 @@ const quizData_11 = [
       {id: "d", text: "Blocks of the Ethereum Blockchain."}
       ],
     correct: ["c"],
-    explanation: "Each account has its own state in Ethereum, A transition into another set is induced by a set of transactions."
+    anation: "Each account has its own state in Ethereum, A transition into another set is induced by a set of transactions."
   },
   {
     id: 9,
@@ -194,7 +194,7 @@ const quizData_11 = [
       {id: "b", text: "False"}
       ],
     correct: ["b"],
-    Explanation: "A contract account can send ETH to an EOA, however, it can never initiate this transaction."
+    explanation: "A contract account can send ETH to an EOA, however, it can never initiate this transaction."
   },
   {
     id: 15,
