@@ -4,7 +4,7 @@ const quizData_11 = [
   {
     id: 1,
     type: "multiple",
-    question: "What are the two dypes of Ethereum Accounts?",
+    question: "What are the two types of Ethereum Accounts?",
     options: [
       { id: "a", text: "An open account." },
       { id: "b", text: "Externally Owned Accounts (EOA)." },
@@ -128,7 +128,7 @@ const quizData_11 = [
     options: [
       {id: "a", text: "The base fee."},
       {id: "b", text: "The priority tip paid to the validators"},
-      {id: "c", text: ""},
+      {id: "c", text: "A percetnage fee based on the amount of ETH sent."},
       {id: "d", text: "The gas fee based upon the computational power used."}
       ],
     correct: ["a", "b", "d"],
