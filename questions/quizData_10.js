@@ -105,5 +105,22 @@ const quizData_10 = [
   ],
   correct: ["b"],
   explanation: "In a Janus attack targeting subaddresses, the attacker mixes components from different subaddresses to trick a wallet into claiming an output under a subaddress while letting the sender link subaddresses belonging to the same wallet. K^(s,i) does not enter the output derivation K° in the same way to expose subaddress linkage."
-}
+},
+  { id: 9,
+      type: "matching",
+      question: "Map the tool to the correct goal (multiples are possible):",
+      items: [
+        { id: "a", text: "Stealth Address" },
+        { id: "b", text: "Commitment Schemes" },
+        { id: "c", text: "Rign Signature" }
+      ],
+      targets: [
+        { id: "1", text: "Hide Recipient" },
+        { id: "2", text: "Hide Transaction" },
+        { id: "3", text: "Hide Sender" }
+      ],
+      correct: ["1-c", "2-b", "3-a"],
+      explanation:
+        "Ring signatures hide which ring member is the real sender. Stealth addresses and the one-time addresses derived from them hide the recipient. Key images are unique per spent output, so a second spend of the same output produces the same key image and is detected. RingCT hides amounts; its building blocks are pseudo output commitments (they hide the input amount while letting verifiers check that inputs equal outputs plus fee) and range proofs (they show that hidden amounts are non-negative and cannot overflow)."
+    }
     ];
