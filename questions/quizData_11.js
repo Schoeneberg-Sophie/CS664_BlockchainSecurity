@@ -128,7 +128,7 @@ const quizData_11 = [
     options: [
       {id: "a", text: "The base fee."},
       {id: "b", text: "The priority tip paid to the validators"},
-      {id: "c", text: "A percetnage fee based on the amount of ETH sent."},
+      {id: "c", text: "A percentage fee based on the amount of ETH sent."},
       {id: "d", text: "The gas fee based upon the computational power used."}
       ],
     correct: ["a", "b", "d"],
