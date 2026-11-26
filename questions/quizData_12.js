@@ -1,4 +1,4 @@
-// ethereum (Ethereum Virtual MAchine, Transactions, Tokens, Gas)
+// ethereum (Ethereum Virtual Machine, Transactions, Tokens, Gas)
 
 const quizData_12 = [
   {id: 1,
@@ -111,7 +111,7 @@ const quizData_12 = [
       {id: "d", text: "To make smart contract bytecode mutable after deployment."}
       ],
     correct: ["c", "b"],
-    explanation: "A gas fee is neede to compensate validators for the computational power they invested in executing the code, as well as preventing DoS attacks, as the EVM allows for infite loops as a turing complete machine."
+    explanation: "A gas fee is needed to compensate validators for the computational power they invested in executing the code, as well as preventing DoS attacks, as the EVM allows for infite loops as a turing complete machine."
   },
   {
     id: 9,
@@ -125,7 +125,121 @@ const quizData_12 = [
       ],
     correct: ["d"],
     explanation: "The transaction is stopped, but the gas is still spent as a recompensation of the computational power needed to execute the code thus far."
-  }
+  },
+  {
+    id: 10,
+    type: "single",
+    question: "What is the gasLimit?",
+    options: [
+      {id: "a", text: ""},
+      {id: "b", text: ""},
+      {id: "c", text: "The maximum units of gas the sender is willing to pay."},
+      {id: "d", text: ""}
+      ],
+    correct: ["c"],
+    explanation: "The gasLimit sets the cap on the total units of gas a transaction is allowed to consume during execution."
+  },
+{
+    id: 11,
+    type: "single",
+    question: "What is the gasPrice?",
+    options: [
+      {id: "a", text: "The total ETH paid for an entire transaction regardless of how many operations run."},
+      {id: "b", text: "The maximum price per gas the sender is willing to pay."},
+      {id: "c", text: "The current block reward issued to a validator for proposing a block."},
+      {id: "d", text: "The nonce value used to prevent transaction replay."}
+      ],
+    correct: ["b"],
+    explanation: "In legacy transactions (and conceptually as a per-gas price), gasPrice represents the amount of ETH/gwei the sender is willing to pay per unit of gas."
+  },
+  {
+    id: 12,
+    type: "single",
+    question: "True or false: the node that validates the code also executes it.",
+    options: [
+      {id: "a", text: "True"},
+      {id: "b", text: "False"}
+      ],
+    correct: ["a"],
+    explanation: "Validating a block's state transitions requires re-executing the transactions/contract code in the EVM to verify that the resulting state matches the block's state root."
+  },
+  {
+    id: 13,
+    type: "multiple",
+    question: "What are not some stages of creating a smart account?",
+    options: [
+      {id: "a", text: "Write the programm code."},
+      {id: "b", text: "Propagate code to the Ethereum Network."},
+      {id: "c", text: "Compile the code into bytecode that runs in the EVM."},
+     {id: "d", text: "Mine a Bitcoin block with a coinbase transaction."},
+      {id: "e", text: "Burn all ETH in the sender's account to generate a private key."},
+      {id: "f", text: "Deploy programm code on the ethereum platform by creating a contract account."}
+      ],
+    correct: ["d", "e"],
+    explanation:"Creating/deploying a contract account involves writing the smart contract code, compiling it into EVM bytecode, broadcasting/propagating the deployment transaction, and deploying it to create a contract account—not mining Bitcoin blocks or burning ETH to derive a private key."
+  },
+  {
+    id: 14,
+    type: "multiple",
+    question: "When creating a new contract account, its address is derived from ...",
+    options: [
+      {id: "a", text: "the transaction's gas limit"},
+      {id: "b", text: "the nonce"},
+      {id: "c", text: "the block's timestamp"},
+      {id: "d", text: "the originators address"}
+      ],
+    correct: ["b", "d"],
+    explanation: "For standard contract creation (CREATE), the new contract address is deterministically derived by hashing the RLP-encoded sender (originator) address and the sender's current nonce."
+  },
+  {
+    id: 15, 
+    type: "single",
+    question: "True or false: multiple smart contracts can run in parallel.",
+    options: [
+      {id: "a", text: "True"},
+      {id: "b", text: "True"}
+      ],
+    correct: ["b"],
+    explanation: "Only one smart contract can be executed at a time."
+  },
+{
+    id: 16,
+    type: "single",
+    question: "Execution of a smart contract is atomic. What does this mean?",
+    options: [
+      {id: "a", text: "The contract executes a single opcode per block across multiple transactions."},
+      {id: "b", text: "Only half of the state changes are saved if a sub-call reverts."},
+      {id: "c", text: "The code is either successfully executed or fails."},
+      {id: "d", text: "The contract runs concurrently across separate validator threads."}
+    ],
+    correct: ["c"],
+    explanation: "Atomicity ('all-or-nothing') means either all state changes in the execution succeed together or the execution fails/reverts so that no partial state changes persist."
+  },
+  {
+    id: 17,
+    type: "single",
+    question: "True or false: When a smart contract is deleted, gas is refunded.",
+    options: [
+      {id: "a", text: "True"},
+      {id: "b", text: "False"}
+      ],
+    correct: ["a"],
+    explanation: "Gas is refunded as resources are freed up."
+  },
+  {
+    id: 18,
+    type: "multiple",
+    question: "What are some applications of smart contracts?",
+    options: [
+      {id: "a", text: "Document preservation"},
+      {id: "b", text: "Automated escrow and conditional payments"},
+      {id: "c", text: "Decentralized token swaps and lending"},
+      {id: "d", text: "Authenticate certificates"},
+      {id: "e", text: "Lend and borrow money"}
+      ],
+    correct: ["a", "d", "e"],
+    explanation: "Smart contracts can automate agreement execution and record/verify tamper-evident proofs or states on-chain, such as preserving document hashes/timestamps and authenticating certificates (alongside broader uses like escrow, DeFi, and supply chain tracking)."
+  },
   ];
     
       
