@@ -240,6 +240,22 @@ const quizData_12 = [
     correct: ["a", "d", "e"],
     explanation: "Smart contracts can automate agreement execution and record/verify tamper-evident proofs or states on-chain, such as preserving document hashes/timestamps and authenticating certificates (alongside broader uses like escrow, DeFi, and supply chain tracking)."
   },
+  {
+    id: 19,
+    type: "multiple",
+    question: "What are not some functions of tokens?",
+    options: [
+      {id: "a", text: "Assets/Ownership"},
+      {id: "b", text: "Currency"},
+      {id: "c", text: "Consensus block validation"},
+      {id: "d", text: "Off-chain storage hosting"},
+      {id: "e", text: "Certification/Attestation"},
+      {id: "f", text: "Digital Identity"},
+      {id: "g", text: "Smart contract bytecode execution"}
+    ],
+    correct: ["c", "d", "g"],
+    explanation: "Tokens commonly represent assets/ownership, currency/value transfer, certifications/attestations, and identity/access rights—they do not mine Proof-of-Work blocks, act as consensus nodes themselves, or bypass cryptographic signature checks."
+  }
   ];
     
       
