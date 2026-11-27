@@ -276,7 +276,7 @@ const quizData_12 = [
     options: [
       {id: "a", text: "They have no monetary value."},
       {id: "b", text: "There exists only one unique token."},
-      {id: "c", text: "Every token has a unique ID."}
+      {id: "c", text: "Every token has a unique ID."},
       {id: "d", text: "They are intercheangable and have not unique ID."}
       ],
     correct: ["d"],
