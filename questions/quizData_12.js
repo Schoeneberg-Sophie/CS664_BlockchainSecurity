@@ -289,7 +289,7 @@ const quizData_12 = [
     options: [
       {id: "a", text: "Sufficient gas."},
       {id: "b", text: "Creating a new contract account."},
-      {id: "c", text: "Contacting enough other nodes who want to participate in creating the token.},
+      {id: "c", text: "Contacting enough other nodes who want to participate in creating the token."},
       {id: "d", text: "A new smart contract."}
         ],
     correct: ["d"],
