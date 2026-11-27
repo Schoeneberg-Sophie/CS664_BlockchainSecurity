@@ -441,7 +441,7 @@
                     </div>
                 </div>
 
-                <!-- Ethereum: Lectures 11 - 14 -->
+                <!-- Ethereum: Lectures 11 - 13 -->
                 <div class="topic-group">
                     <div class="topic-bar topic-ethereum">Ethereum</div>
                     <div class="topic-buttons">
@@ -529,7 +529,6 @@
     <script src="questions/quizData_11.js"></script>
     <script src="questions/quizData_12.js"></script>
     <script src="questions/quizData_13.js"></script>
-    <script src="questions/quizData_14.js"></script>
 
     <script>
         "use strict";
@@ -559,8 +558,7 @@
             "10": extractQuestions(typeof quizData_10 !== "undefined" ? quizData_10 : null),
             "11": extractQuestions(typeof quizData_11 !== "undefined" ? quizData_11 : null),
             "12": extractQuestions(typeof quizData_12 !== "undefined" ? quizData_12 : null),
-            "13": extractQuestions(typeof quizData_13 !== "undefined" ? quizData_13 : null),
-            "14": extractQuestions(typeof quizData_14 !== "undefined" ? quizData_14 : null)
+            "13": extractQuestions(typeof quizData_13 !== "undefined" ? quizData_13 : null)
         };
 
         function getTopicMeta(lectureId) {
@@ -571,7 +569,7 @@
             if (num >= 7 && num <= 10) {
                 return { label: "Monero", className: "topic-monero" };
             }
-            if (num >= 11 && num <= 14) {
+            if (num >= 11 && num <= 13) {
                 return { label: "Ethereum", className: "topic-ethereum" };
             }
             return { label: "General", className: "" };
