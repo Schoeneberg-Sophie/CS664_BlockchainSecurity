@@ -212,7 +212,7 @@ const quizData_11 = [
   {
     id: 16,
     type: "single",
-    question: "In Ethereum's TRansaction fields, when is the field 'init' used (init = 'true')?",
+    question: "In Ethereum's Transaction fields, when is the field 'init' used (init = 'true')?",
     options: [
       {id: "a", text: "To send ETH."},
       {id: "b", text: "To send ETH to contract accounts only."},
@@ -232,57 +232,5 @@ const quizData_11 = [
       ],
     correct: ["b"],
     explanation: "StorageHashes are not used in EOAs and are only used in contract accounts"
-  },
-  {
-    id: 18,
-    type: "single",
-    question: "What prerequisite is necessary to create a new token?",
-    options: [
-      {id: "a", text: "Sufficient gas."},
-      {id: "b", text: "Creating a new contract account."},
-      {id: "c", text: "Contacting enough other nodes who want to participate in creating the token.},
-      {id: "d", text: "A new smart contract."}
-        ],
-    correct: ["d"],
-    explanation: "For each new token invented in Ethereum, creating a new smart contract is necessary to manage owenrship, transfer and more."
-  },
-  {
-    id: 19,
-    type: "single",
-    question: "User A creates a new smart contract to receive funds. Who can access the funds in this account?",
-    options: [
-      {id: "a", text: "Only User A."},
-      {id: "b", text: "Every user in Ethereum."},
-      {id: "c", text: "Users who also own these tokens."},
-      {id: "d", text: "Only User A and validators of the transactions."}
-      ],
-    correct: ["a"],
-    explanation: "Only User A can access the tokens in the smart contract, unless otherwise specified."
-  },
-  {
-    id: 20,
-    type: "multiple",
-    question: "User A wants to send User B some of his tokens he created. He needs to...",
-    options: [
-      {id: "a", text: "Ask for permission first"},
-      {id: "b", text: "Send the tokens via the smart contract."},
-      {id: "c", text: "Get the address of User B."},
-      {id: "d", text: "Ask User B to pay a fee for the transaction."}
-      ],
-    correct: ["b", "c"],
-    explanation: "User A needs to receive the address of User B, after which he can send the transaction to the smart contract, which then executes the corresponding code, sending the tokens to User B."
-  },
-  {
-    id: 21, 
-    type: "single",
-    question: "What does it mean when tokens are fungible?",
-    options: [
-      {id: "a", text: "They have no monetary value."},
-      {id: "b", text: "There exists only one unique token."},
-      {id: "c", text: "Every token has a unique ID."}
-      {id: "d", text: "They are intercheangable and have not unique ID."}
-      ],
-    correct: ["d"],
-    explanation: "Fungible tokens are tokens that are interchangeable. Instead of tracking which token gets send, only the balance is recorded."
-  }  
+  }
     ];
